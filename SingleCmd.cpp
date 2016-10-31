@@ -10,5 +10,11 @@ string SingleCmd::readCmd() {
 }
 
 void SingleCmd::execute() {
-	//FIXME NEEDS TO BE DONE
+	char* command = cmd.c_str();
+	if (command[0] == "#"){
+		return;
+	}
+	if (execl(/*PATH "/bin/" ?*/, command, NULL) < 0){//? idk if this works
+		cout << "ERROR EXECUTING";
+	}
 }
