@@ -15,9 +15,8 @@ private:
 	CmdComposite() : Base() {};
 	
 public:
-	void readCmd(int argc, char* argv[]);
-	void parse(int arc, char* argv[]);
-	void addCmd(string cmd);
+	void parse(int argc, char* argv[]);
+	void addCmd(char* cmd);
 	void execute();
 
 //Accessor and Mutator
