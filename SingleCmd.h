@@ -20,7 +20,7 @@ public:
 	string readCmd();
 
 	//The main function used by the composite pattern
-	void execute(); //LOOK AT CCP FILE IT STILL NEEDS TO BE DONE
+	void execute(char* cmd); //LOOK AT CCP FILE IT STILL NEEDS TO BE DONE
 };
 
 #endif
