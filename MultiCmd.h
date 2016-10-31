@@ -2,6 +2,7 @@
 #define MULTICMD_H
 #include "Base.h"
 #include <string>
+#include <cstring>
 
 using std::string;
 
