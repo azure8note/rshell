@@ -11,15 +11,15 @@ char* SingleCmd::readCmd() {
 
 void SingleCmd::execute() {
 	
-  char* args[2]
+  char* args[2];
   args[0] = cmd;
   args[1] = NULL;
   
   pid_t pid;
   
-	if (pid = fork() < 0) { /*fork a child process*/
+	if ((pid = fork()) < 0) { /*fork a child process*/
 	    perror("fork");
-	else if(pid == 0){ //child processs
+	} else if(pid == 0){ //child processs
 	  if (execvp(cmd, args) < 0){
 		perror ("exec");
 	  }
