@@ -1,26 +1,32 @@
 #ifndef SINGLECMD_H
 #define SINGLECMD_H
 #include "Base.h"
-#include <string>
+#include <iostream>
+#include <cstring>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <stdlib.h>
 
 using std::string;
 
 class SingleCmd: public Base {
 
 private:
-	string cmd;
+	char* cmd;
 
 public:
 	//CONSTRUCTORS
 	SingleCmd() : Base() {};
-	SingleCmd(string str) : Base(), cmd(str) {};
+	SingleCmd(char* str) : Base(), cmd(str) {};
 
 	//Accessors and Mutators
 	void changeCmd(string str);
-	string readCmd();
+	char* readCmd();
 
 	//The main function used by the composite pattern
-	void execute(char* cmd); //LOOK AT CCP FILE IT STILL NEEDS TO BE DONE
+	void execute();
 };
 
 #endif
