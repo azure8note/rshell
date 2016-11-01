@@ -10,6 +10,9 @@
 #include <stdlib.h>
 
 using std::string;
+using std::cout;
+using std::endl;
+
 
 class MultiCmd: public Base {
 
@@ -23,7 +26,7 @@ public:
 	MultiCmd(char* str) : Base(), cmdString(str) {};
 
 	//Accessors and Mutators
-	void changeCmd(string str);
+	void changeCmd(char* str);
 	char* readCmd();
 	void changeStatus();
 	bool getStatus();
