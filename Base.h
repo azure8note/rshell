@@ -3,7 +3,7 @@
 
 class Base {
 
-protected:
+  public:
 	//Constructor
 	Base() {};
 	//Pure virtual function
