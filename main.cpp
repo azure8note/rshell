@@ -15,22 +15,22 @@ using std::endl;
 
 int main(int argc, char* argv[]) {
 	
-    bool flag = true;
+    //bool flag = true;
     char hostname[128];
     char* usrname = getlogin();
     gethostname(hostname, sizeof hostname);
    
-    while (flag){
-	cout << usrname  << "@" << hostname << "$ ";
-	CmdComposite* cmdLine = new CmdComposite();
-	cmdLine->parse(argc, argv);
-	cmdLine->execute();
+    //while (flag){
+	//cout << usrname  << "@" << hostname << " $ ";
+	//CmdComposite* cmdLine = new CmdComposite();
+	//cmdLine->parse(argc, argv);
+	//cmdLine->execute(); 
 	
 	//if (exit) {
 	  //flag = false;
 	//}
-	flag = false;
-    }
-	
+	//flag = false;
+    //}
+    cout << endl << endl << endl;
     return 0;
 }
