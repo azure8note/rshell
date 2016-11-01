@@ -1,6 +1,6 @@
 #include "MultiCmd.h"
 
-void MultiCmd::changeCmd(string str){
+void MultiCmd::changeCmd(string str) {
 	cmdString = str;
 	return;
 }
