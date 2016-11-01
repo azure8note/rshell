@@ -1,11 +1,11 @@
 #include "MultiCmd.h"
 
-void MultiCmd::changeCmd(string str){
+void MultiCmd::changeCmd(char* str){
 	cmdString = str;
 	return;
 }
 
-string MultiCmd::readCmd() {
+char* MultiCmd::readCmd() {
 	return cmdString;
 }
 
@@ -25,40 +25,60 @@ bool MultiCmd::getStatus() {
 void MultiCmd::execute() {
 
 	char* cmd;
-	cmd = strtok(cmdString.c_str(), " ");
+	cmd = strtok(cmdString, " ");
+	char* args[2];
+	
+	
+	pid_t pid;
+	int status;
 	
 	while (cmd != NULL) {
-
-		if(cmd[0] == "#"){ //comment case
-			return;
+		args[0] = cmd;
+		args[1] = NULL;
+		
+		if (pid = fork() == -1) {/* forks child process */
+		      perror("fork");
 		}
-		else if( *cmd == "&&" && cmdStatus){// && case
-			if (execvp(/*PATH "/bin/" ?*/, cmd, NULL) < 0){//? idk if this works
-				cmdStatus = false;
-				out << "ERROR EXECUTING" << endl;
-			}
-			else {
-				cmdStatus = true;
-				cmd = strtok(NULL, " ");
-			}
+		else if (pid == 0){
+	  
+		      if( *cmd == "&&" && cmdStatus){// && case
+			  cmd = strtok(cmdString, " ");//gets the next command
+			  args[0] = cmd;
+			  if (execvp(cmd, args) < 0){//? idk if this works
+				  cmdStatus = false;
+				  cout << "Didn't execute" << endl;
+			  }
+			  else {
+				  cmdStatus = true;
+				  cmd = strtok(NULL, " ");//gets next command
+			  }
+		      }
+		      else if ( *cmd == "||" && !cmdStatus){ // || case
+			  cmd = strtok(cmdString, " ");//gets the next command
+			  args[0] = cmd;
+			  
+			  if (execvp(cmd, args) < 0){//? idk if this works
+				  cmdStatus = false;
+				  cout << "Didn't execute" MM endl;
+			  }
+			  else {
+				  cmdStatus = true;
+				  cmd = strtok(NULL, " ");
+			  }
+		      }
+		      else if (execvp(cmd, args) < 0){//? idk if this works //general case
+			   cmdStatus = false;
+			   cout << "Didn't execute" << endl;
+		      }
+		      else {
+			  cmdStatus = true;
+			  cmd = strtok(NULL, " ");
+		      }
 		}
-		else if ( *cmd == "||" && !cmdStatus){ // || case
-			if (execvp(/*PATH "/bin/" ?*/, cmd, NULL) < 0){//? idk if this works
-				cmdStatus = false;
-				out << "ERROR EXECUTING" << endl;
-			}
-			else {
-				cmdStatus = true;
-				cmd = strtok(NULL, " ");
-			}
-		}
-		else if (execvp(/*PATH "/bin/" ?*/, cmd, NULL) < 0){//? idk if this works //general case
-			cmdStatus = false;
-			cout << "ERROR EXECUTING" << endl;
-		}
-		else {
-				cmdStatus = true;
-				cmd = strtok(NULL, " ");
+		else {// parent
+		    if (wait(0) == -1){
+		      perror("wait");
+		    }
 		}
 	}
 }
