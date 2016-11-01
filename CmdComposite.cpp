@@ -20,6 +20,7 @@ void CmdComposite::parse(int argc, char* argv[]) {
 
 	for (int i = 0; i < argc; ++i) {
 		cmdLine += argv[i];
+		
 	}	
 	
 	// Set tokptr to beginning of first token
