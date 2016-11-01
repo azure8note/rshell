@@ -11,7 +11,24 @@ using std::string;
 using std::cout;
 using std::endl;
 
-int main() {
-	//DO STUFF
+int main(int argc, char* argv[]) {
+	
+   bool flag = true;
+   
+   while (flag){
+	cout << "$ ";
+	CmdComposite* cmdLine = new CmdComposite();
+	cmdLine->parse(argc, argv);
+	cmdLine->execute();
+	
+	//if (exit) {
+	  //flag = false;
+	//}
+	flag = false;
+   }
+  
+  
+  
+	
 	return 0;
 }

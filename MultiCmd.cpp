@@ -30,7 +30,6 @@ void MultiCmd::execute() {
 	
 	
 	pid_t pid;
-	//int status;
 	
 	string cmdCpy(cmd); // makes string copy of cmd
 
