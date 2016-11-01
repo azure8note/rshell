@@ -1,25 +1,30 @@
 #ifndef MULTICMD_H
 #define MULTICMD_H
 #include "Base.h"
-#include <string>
+#include <iostream>
 #include <cstring>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <stdlib.h>
 
 using std::string;
 
 class MultiCmd: public Base {
 
 private:
-	string cmdString;
+	char* cmdString;
 	bool cmdStatus;
 
 public:
 	//CONSTRUCTORS
 	MultiCmd() : Base() {};
-	MultiCmd(string str) : Base(), cmdString(str) {};
+	MultiCmd(char* str) : Base(), cmdString(str) {};
 
 	//Accessors and Mutators
 	void changeCmd(string str);
-	string readCmd();
+	char* readCmd();
 	void changeStatus();
 	bool getStatus();
 
