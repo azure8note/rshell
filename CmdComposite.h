@@ -12,10 +12,11 @@ using std::string;
 class CmdComposite : public Base {
 private:
 	vector <Base*> cmdList;
-	//Constructor
-	CmdComposite() : Base() {};
+	
 	
 public:
+	//Constructor
+	CmdComposite() : Base() {};
 	void parse(int argc, char* argv[]);
 	void addCmd(char* cmd);
 	void execute();
