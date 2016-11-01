@@ -22,7 +22,7 @@ public:
 	SingleCmd(char* str) : Base(), cmd(str) {};
 
 	//Accessors and Mutators
-	void changeCmd(string str);
+	void changeCmd(char* str);
 	char* readCmd();
 
 	//The main function used by the composite pattern
