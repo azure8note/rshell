@@ -1,2 +1,14 @@
-all.o: main.o CmdComposite.o SingleCmd.o  MultiCmd.o
-	g++ -g main.o CmdComposite.o SingleCmd.o MultiCmd.o
+CC=g++
+CC_FLAGS=-Wall -ansi
+EXEC=a.out
+SOURCES=$(wildcard *.cpp)
+OBJECTS=$(SOURCES:.cpp=.o)
+
+$(EXEC): $(OBJECTS)
+	$(CC) $(OBJECTS) -o $(EXEC)
+
+%.o: %.cpp
+	$(CC) -c $(CC_FLAGS) $< -o $@
+
+clean:
+rm -f $(EXEC) $(OBJECTS)
