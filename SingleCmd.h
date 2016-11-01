@@ -1,6 +1,8 @@
 #ifndef SINGLECMD_H
 #define SINGLECMD_H
 #include "Base.h"
+
+#include <stddef.h>
 #include <iostream>
 #include <cstring>
 #include <stdio.h>

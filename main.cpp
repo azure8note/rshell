@@ -3,6 +3,7 @@
 #include "MultiCmd.h"
 #include "CmdComposite.h"
 
+#include <stddef.h>
 #include <unistd.h>
 #include <iostream>
 #include <string>
@@ -29,10 +30,7 @@ int main(int argc, char* argv[]) {
 	  //flag = false;
 	//}
 	flag = false;
-   }
-  
-  
-  
+    }
 	
-	return 0;
+    return 0;
 }

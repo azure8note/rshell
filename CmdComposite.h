@@ -1,6 +1,8 @@
 #ifndef CMDCOMP_H
 #define CMDCOMP_H
 #include "Base.h"
+
+#include <stddef.h>
 #include <vector>
 #include <string>
 #include <cstring>
