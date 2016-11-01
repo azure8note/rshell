@@ -1,7 +1,9 @@
 #ifndef MULTICMD_H
 #define MULTICMD_H
 #include "Base.h"
+
 #include <iostream>
+#include <stddef.h>
 #include <cstring>
 #include <stdio.h>
 #include <unistd.h>
