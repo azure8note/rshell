@@ -3,6 +3,7 @@
 #include "Base.h"
 #include <vector>
 #include <string>
+#include <cstring>
 #include <iostream>
 
 using std::vector;
