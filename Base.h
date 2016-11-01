@@ -2,12 +2,12 @@
 #define BASE_H
 
 class Base {
-
-protected:
+public:
 	//Constructor
 	Base() {};
 	//Pure virtual function
 	virtual void execute() = 0;
 
 };
+
 #endif
