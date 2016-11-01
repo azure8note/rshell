@@ -30,43 +30,45 @@ void MultiCmd::execute() {
 	
 	
 	pid_t pid;
-	int status;
+	//int status;
 	
+	string cmdCpy(cmd); // makes string copy of cmd
+
 	while (cmd != NULL) {
 		args[0] = cmd;
 		args[1] = NULL;
 		
-		if (pid = fork() == -1) {/* forks child process */
+		if ((pid = fork()) == -1) {/* forks child process */
 		      perror("fork");
-		}
+		} 
 		else if (pid == 0){
 	  
-		      if( *cmd == "&&" && cmdStatus){// && case
-			  cmd = strtok(cmdString, " ");//gets the next command
+		      if( cmdCpy == "&&" && cmdStatus){ // && case
+			  cmd = strtok(cmdString, " "); //gets the next command
 			  args[0] = cmd;
-			  if (execvp(cmd, args) < 0){//? idk if this works
+			  if (execvp(cmd, args) < 0){ //? idk if this works
 				  cmdStatus = false;
 				  cout << "Didn't execute" << endl;
 			  }
 			  else {
 				  cmdStatus = true;
-				  cmd = strtok(NULL, " ");//gets next command
+				  cmd = strtok(NULL, " "); //gets next command
 			  }
 		      }
-		      else if ( *cmd == "||" && !cmdStatus){ // || case
-			  cmd = strtok(cmdString, " ");//gets the next command
+		      else if ( cmdCpy == "||" && !cmdStatus){ // || case
+			  cmd = strtok(cmdString, " "); //gets the next command
 			  args[0] = cmd;
 			  
-			  if (execvp(cmd, args) < 0){//? idk if this works
+			  if (execvp(cmd, args) < 0){ //? idk if this works
 				  cmdStatus = false;
-				  cout << "Didn't execute" MM endl;
+				  cout << "Didn't execute" << endl;
 			  }
 			  else {
 				  cmdStatus = true;
 				  cmd = strtok(NULL, " ");
 			  }
 		      }
-		      else if (execvp(cmd, args) < 0){//? idk if this works //general case
+		      else if (execvp(cmd, args) < 0){ //? idk if this works //general case
 			   cmdStatus = false;
 			   cout << "Didn't execute" << endl;
 		      }
@@ -75,7 +77,7 @@ void MultiCmd::execute() {
 			  cmd = strtok(NULL, " ");
 		      }
 		}
-		else {// parent
+		else { // parent
 		    if (wait(0) == -1){
 		      perror("wait");
 		    }
