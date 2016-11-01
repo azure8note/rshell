@@ -1,20 +1,32 @@
 #include "SingleCmd.h"
 
-void SingleCmd::changeCmd(string str){
+void SingleCmd::changeCmd(char* str){
 	cmd = str;
 	return;
 }
 
-string SingleCmd::readCmd() {
+char* SingleCmd::readCmd() {
 	return cmd;
 }
 
 void SingleCmd::execute() {
-	char* command = cmd.c_str();
-	if (command[0] == "#"){
-		return;
+	
+  char* args[2]
+  args[0] = cmd;
+  args[1] = NULL;
+  
+  pid_t pid;
+  
+	if (pid = fork() < 0) { /*fork a child process*/
+	    perror("fork");
+	else if(pid == 0){ //child processs
+	  if (execvp(cmd, args) < 0){
+		perror ("exec");
+	  }
 	}
-	if (execl(/*PATH "/bin/" ?*/, command, NULL) < 0){//? idk if this works
-		cout << "ERROR EXECUTING";
+	else {//parent
+	  if (wait(0) == -1){
+	    perror("wait");
+	  }
 	}
 }
