@@ -26,7 +26,7 @@ private:
 public:
 	//CONSTRUCTORS
 	SingleCmd() : Base() {
-	  *cmd = '\0';
+	  cmd = '\0';
 	  cmdStatus = true;
 	};
 	SingleCmd(char* str) : Base() {
