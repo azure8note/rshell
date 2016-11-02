@@ -24,7 +24,9 @@ private:
 public:
 	//CONSTRUCTORS
 	SingleCmd() : Base() {};
-	SingleCmd(char* str) : Base(), cmd(str) {};
+	SingleCmd(char* str) : Base() {
+	  cmd = str;
+	};
 
 	//Accessors and Mutators
 	void changeCmd(char* str);
