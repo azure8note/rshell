@@ -5,7 +5,7 @@ void MultiCmd::setCmd(char* str){
 	return;
 }
 
-char* MultiCmd::getCmd() {
+char* MultiCmd::getCmd() const{
 	return cmdString;
 }
 
@@ -13,7 +13,7 @@ void MultiCmd::setStatus(bool b) {
 	cmdStatus = b;
 }
 
-bool MultiCmd::getStatus() {
+bool MultiCmd::getStatus() const{
 	return cmdStatus;
 }
 
