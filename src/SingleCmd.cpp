@@ -9,11 +9,11 @@ char* SingleCmd::getCmd() const{
 	return cmd;
 }
 
-bool SingleCmd::getStatus() const{
+bool SingleCmd::getCmdStatus() const{
   return cmdStatus;
 }
 
-void SingleCmd::setStatus(bool b){
+void SingleCmd::setCmdStatus(bool b){
   cmdStatus = b;
 }
 //----------------------------------
