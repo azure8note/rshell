@@ -24,39 +24,52 @@ bool MultiCmd::getStatus() {
 
 void MultiCmd::execute() {
   
-	char* cmd;
-	cmd = strtok(cmdString, " ");
-	char* args[2];
-	
+      string an = "&&";
+      string o = "||";
+  
+     if(cmdString[0] == ' '){
+	string cmdCpy(cmdString);
+	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
+	char* cstr = new char[cmdCpy.length()+1];
+	strcpy(cstr, cmdCpy.c_str());
+	cmdString = cstr;
+     }
+  
+	char* tok;
+	tok = strtok(cmdString, " ");
+	char* args[64];
 	
 	pid_t pid;
-	
-	string cmdCpy(cmd); // makes string copy of cmd
+	pid_t wpid;
 
-	while (cmd != NULL) {
-		args[0] = cmd;
+	while (tok != NULL) {
+		int status;
+		
+		args[0] = tok;
 		args[1] = NULL;
 		
-		if ((pid = fork()) == -1) {/* forks child process */
+		pid = fork();/* forks child process */
+		
+		if (pid == -1) {
 		      perror("fork");
 		} 
 		else if (pid == 0){
 	  
-		      if( cmdCpy == "&&" && cmdStatus){ // && case
-			  cmd = strtok(cmdString, " "); //gets the next command
-			  args[0] = cmd;
+		      if(tok == an.c_str() && cmdStatus){ // && case
+			  tok = strtok(cmdString, " "); //gets the next command
+			  args[0] = tok;
 			  if (execvp(args[0], args) < 0){ //? idk if this works
 				  cmdStatus = false;
 				  cout << "Didn't execute" << endl;
 			  }
 			  else {
 				  cmdStatus = true;
-				  cmd = strtok(NULL, " "); //gets next command
+				  tok = strtok(NULL, " "); //gets next command
 			  }
 		      }
-		      else if ( cmdCpy == "||" && !cmdStatus){ // || case
-			  cmd = strtok(cmdString, " "); //gets the next command
-			  args[0] = cmd;
+		      else if (tok == o.c_str() && !cmdStatus){ // || case
+			  tok = strtok(cmdString, " "); //gets the next command
+			  args[0] = tok;
 			  
 			  if (execvp(args[0], args) < 0){ //? idk if this works
 				  cmdStatus = false;
@@ -64,7 +77,7 @@ void MultiCmd::execute() {
 			  }
 			  else {
 				  cmdStatus = true;
-				  cmd = strtok(NULL, " ");
+				  tok = strtok(NULL, " ");
 			  }
 		      }
 		      else if (execvp(args[0], args) < 0){ //? idk if this works //general case
@@ -73,13 +86,14 @@ void MultiCmd::execute() {
 		      }
 		      else {
 			  cmdStatus = true;
-			  cmd = strtok(NULL, " ");
+			  tok = strtok(NULL, " ");
 		      }
 		}
-		else { // parent
-		    if (wait(0) == -1){
-		      perror("wait");
-		    }
+		else {//parent
+		  do {
+		    wpid = waitpid(pid, &status, WUNTRACED);
+		  }
+		  while(!WIFEXITED(status) && !WIFSIGNALED(status));
 		}
 	}
 }
