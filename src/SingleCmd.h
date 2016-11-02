@@ -37,8 +37,8 @@ public:
 	//Accessors and Mutators
 	void setCmd(char* str);
 	char* getCmd() const;
-	void setStatus(bool b);
-	bool getStatus() const;
+	void setCmdStatus(bool b);
+	bool getCmdStatus() const;
 
 	//The main function used by the composite pattern
 	void parse();//used by the execute to remove spaces
