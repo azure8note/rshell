@@ -32,11 +32,10 @@ void MultiCmd::parse() { // Splits the command string into string tokens
   char* tok;
   
   tok = strtok(cstr, " ");
-  cmds.push_back(tok);
   
   for(unsigned i = 0; tok != NULL; i++){ // Adds string tokens into vector of tokens
-    tok = strtok(NULL, " ");
     cmds.push_back(tok);
+    tok = strtok(NULL, " ");
   }
 }
 
@@ -46,7 +45,7 @@ void MultiCmd::makeQueue() {
   
   /* Iterates the vector of commands, instantiating
      the correct corresponding object */
-  for(unsigned i = 0; i < cmds.size(); i++){
+  for(unsigned i = 0; i < cmds.size()-1; i++){
      if ((cmds.at(i))[0] == '&'){ // Checks if cmd is an && connector
        temp = new And(); // Creates And object and pushes it into queue
        cmdQueue.push(temp);
