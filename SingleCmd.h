@@ -20,8 +20,8 @@ class SingleCmd: public Base {
 
 private:
 	char* cmd;
-	bool cmdStatus;
-	char* args[64];
+	bool cmdStatus; // for the multi command calls
+	char* args[64]; // for additional flags and arguments passed into the single commands
 
 public:
 	//CONSTRUCTORS
@@ -35,13 +35,13 @@ public:
 	};
 
 	//Accessors and Mutators
-	void parse();
 	void setCmd(char* str);
 	char* getCmd() const;
 	void setStatus(bool b);
 	bool getStatus() const;
 
 	//The main function used by the composite pattern
+	void parse();//used by the execute to remove spaces
 	void execute();
 };
 
