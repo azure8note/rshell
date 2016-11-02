@@ -15,7 +15,7 @@ void CmdComposite::addCmd(char* cmd) {
 }
 
 void CmdComposite::parse(string cmdLine) {
-	unsigned pos = cmdLine.find("#");
+	unsigned int pos = cmdLine.find("#");
 	if (pos != string::npos) {
 		cmdLine = cmdLine.substr(0, pos);	
 	}
