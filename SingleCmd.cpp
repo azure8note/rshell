@@ -21,14 +21,15 @@ void SingleCmd::parse() {
   
   char* tok;
   
-  if(cmd[0] == ' '){
-     string cmdCpy(cmd);
-     cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
-     char* cstr = new char[cmdCpy.length()+1];
-     strcpy(cstr, cmdCpy.c_str());
-     cmd = cstr;
-  }
+	if(cmd[0] == ' '){
+		string cmdCpy(cmd);
+		cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
+		char* cstr = new char[cmdCpy.length()+1];
+		strcpy(cstr, cmdCpy.c_str());
+		cmd = cstr;
+	}
   
+
   tok = strtok(cmd, " ");
   args[0] = tok;
   
@@ -49,24 +50,25 @@ void SingleCmd::execute() {
     exit(0);
   }
 
-  pid_t pid;
-  pid_t wpid;
-  int status;
+  	pid_t pid;
+  	int status;
   
 	pid = fork();
   
 	if (pid < 0) { /*fork a child process*/
-	    perror("fork");
+	   	 perror("fork");
 	} 
 	else if(pid == 0){ //child processs
-	  if (execvp(args[0], args) < 0){
-		setStatus(false);
-		perror ("exec");
-	  }
+	  	if (execvp(args[0], args) < 0){
+			setStatus(false);
+			perror ("exec");
+	  	}	
 	}
 	else {//parent
-	  do {
-	    wpid = waitpid(pid, &status, WUNTRACED);
-	  }
-	  while(!WIFEXITED(status) && !WIFSIGNALED(status));}
+  		pid_t wpid;
+	  	do {
+	    		wpid = waitpid(pid, &status, WUNTRACED);
+	  	}
+	  	while(!WIFEXITED(status) && !WIFSIGNALED(status));
+	}
 }
