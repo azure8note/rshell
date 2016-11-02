@@ -20,12 +20,13 @@ private:
 public:
 	//Constructor
 	CmdComposite() : Base() {};
+	
 	void parse(string cmdLine);
 	void addCmd(char* cmd);
 	void execute();
 
-//Accessor and Mutator
-	Base* getCmd(int a);
+	//Accessor
+	Base* getCmd(int a) const;
 };
 
 #endif
