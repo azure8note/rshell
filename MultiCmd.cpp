@@ -18,14 +18,14 @@ bool MultiCmd::getStatus() const{
 }
 
 void MultiCmd::parse() {
-  
-    string cmdCpy(cmdString);
-    char* cstr = new char[cmdCpy.length()+1];
+  string cmdCpy(cmdString);
+  char* cstr = new char[cmdCpy.length() + 1];
+ 
   if(cmdString[0] == ' '){// removes space in front of ;
 	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
-	strcpy(cstr, cmdCpy.c_str());
   }
   
+  strcpy(cstr, cmdCpy.c_str());
   char* tok;
   
   tok = strtok(cstr, ' ');
@@ -66,7 +66,7 @@ void MultiCmd::execute() {
   this->makeQueue();
   
   Base* leftPtr;
-  Bsae* midPtr;
+  Base* midPtr;
   Base* rightPtr;
   SingleCmd* dum = new SingleCmd();
   
