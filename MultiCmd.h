@@ -28,10 +28,10 @@ using std::vector;
 class MultiCmd: public Base {
 
 private:
-	char* cmdString;
-	bool cmdStatus;
-	queue<Base*> cmdQueue;
-	vector<char*> cmds;
+	char* cmdString; // string of multi commands
+	bool cmdStatus;  // used for checking connector cases
+	queue<Base*> cmdQueue; // used for the output
+	vector<char*> cmds; // holds the commands after being parsed
 public:
 	//CONSTRUCTORS
 	MultiCmd() : Base() {
@@ -46,8 +46,10 @@ public:
 	char* getCmd() const;
 	void setStatus(bool b);
 	bool getStatus() const;
-	void makeQueue();
-	void parse();
+	
+	
+	void makeQueue();// makes queue to be used for execute
+	void parse(); // used for execute to split the cmdstring into cmds and connectors
 	
 
 	//The main function used by the composite pattern
