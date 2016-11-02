@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
     
 	/* while (flag){*/
 	cout << "\033c";
-	cout << usrname  << "@" << hostname << "$ ";
+	cout << usrname  << "@" << hostname << " $ ";
 	
 	
 	CmdComposite* cmdLine = new CmdComposite();
