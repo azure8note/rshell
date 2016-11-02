@@ -19,10 +19,10 @@ bool MultiCmd::getStatus() const{
 
 void MultiCmd::parse() {
   
+    string cmdCpy(cmdString);
+    char* cstr = new char[cmdCpy.length()+1];
   if(cmdString[0] == ' '){// removes space in front of ;
-	string cmdCpy(cmdString);
 	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
-	char* cstr = new char[cmdCpy.length()+1];
 	strcpy(cstr, cmdCpy.c_str());
   }
   
@@ -68,7 +68,7 @@ void MultiCmd::execute() {
   Base* leftPtr;
   Base* midPtr;
   Base* rightPtr;
-  Base* dum = new SingleCmd();
+  SingleCmd* dum = new SingleCmd();
   
   leftPtr = cmdQueue.front();
   cmdQueue.pop();
@@ -77,13 +77,13 @@ void MultiCmd::execute() {
   rightPtr = cmdQueue.front();
   cmdQueue.pop();
   
-  midPtr->setLeft(leftPtr);
-  midPtr->setRight(rightPtr);
+  midPtr->setLeftCmd(leftPtr);
+  midPtr->setRightCmd(rightPtr);
   
   midPtr->execute();
   
   while (!cmdQueue.empty()){
-    dum->setStatus(midPtr->getStatus());
+    dum->setStatus(midPtr->getCmdStatus());
     midPtr = cmdQueue.front();
     cmdQueue.pop();
     rightPtr = cmdQueue.front();
