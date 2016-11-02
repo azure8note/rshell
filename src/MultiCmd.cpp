@@ -10,11 +10,11 @@ char* MultiCmd::getCmd() const{
 	return cmdString;
 }
 
-void MultiCmd::setStatus(bool b) {
+void MultiCmd::setCmdStatus(bool b) {
 	cmdStatus = b;
 }
 
-bool MultiCmd::getStatus() const{
+bool MultiCmd::getCmdStatus() const{
 	return cmdStatus;
 }
 
@@ -72,13 +72,10 @@ void MultiCmd::execute() {
   SingleCmd* dum = new SingleCmd();
   
   leftPtr = cmdQueue.front();
-  //cout << "leftpointer set to: " << cmdQueue.front() << endl;
   cmdQueue.pop();
   midPtr = cmdQueue.front();
-  //cout << "midpointer set to: " << cmdQueue.front() << endl;
   cmdQueue.pop();
   rightPtr = cmdQueue.front();
-  //cout << "rightpointer set to: " << cmdQueue.front() << endl;
   cmdQueue.pop();
   
   midPtr->setLeftCmd(leftPtr);
