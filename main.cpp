@@ -17,11 +17,10 @@ using std::endl;
 
 int main() {
 	//bool flag = true;
-	char hostname[128];
+	char hostname[256];
 	char* usrname = getlogin();
 	gethostname(hostname, sizeof hostname);
     
-	/* while (flag){*/
 	cout << "\033c";
 	cout << usrname  << "@" << hostname << " $ ";
 	
@@ -30,8 +29,13 @@ int main() {
 	getline(cin, cmdLine);	
 	cmdList->parse(cmdLine);
 	cmdList->execute();
-	
-	//flag = false;
-    
+	/*	
+	while() {
+		cout << usrname  << "@" << hostname << " $ ";
+		getline(cin, cmdLine);	
+		cmdList->parse(cmdLine);
+		cmdList->execute(); // exit command is checked for in execute()
+	}
+	*/  
 	return 0;
 }
