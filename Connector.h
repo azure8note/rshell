@@ -3,15 +3,15 @@
 
 #include "Base.h"
 
-class Connector : Public Base {
+class Connector : public Base {
   
   protected:
     
-  virtual Base* getLeftCmd() const = 0;
-  virtual Base* getRightCmd() const = 0;
-  virtual bool getCmdStatus() const = 0;
-  virtual void setLeftCmd(Base*) = 0;
-  virtual void setRightCmd(Base*) = 0;
+    virtual Base* getLeftCmd() const {};
+    virtual Base* getRightCmd() const {};
+    virtual bool getCmdStatus() const {};
+    virtual void setLeftCmd(Base*) {};
+    virtual void setRightCmd(Base*) {};
   
   public:
     Connector() {};
