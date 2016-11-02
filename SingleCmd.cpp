@@ -17,7 +17,9 @@ void SingleCmd::setStatus(bool b){
   cmdStatus = b;
 }
 
-void SingleCmd::execute() {
+void SingleCmd::parse() {
+  
+  char* tok;
   
   if(cmd[0] == ' '){
      string cmdCpy(cmd);
@@ -27,13 +29,6 @@ void SingleCmd::execute() {
      cmd = cstr;
   }
   
-  string lowE = "exit";
-  string capE = "EXIT";
-  
-  char* tok;
-  
-  char* args[64];
-  
   tok = strtok(cmd, " ");
   args[0] = tok;
   
@@ -41,8 +36,16 @@ void SingleCmd::execute() {
     tok = strtok(NULL, " ");
     args[i] = tok;
   }
+}
+
+void SingleCmd::execute() {
   
-  if (tok == lowE.c_str() || tok == capE.c_str()){
+  this->parse();
+  
+  string lowE = "exit";
+  string capE = "EXIT";
+ 
+  if (args[0] == lowE.c_str() || args[0] == capE.c_str()){
     exit(0);
   }
 
