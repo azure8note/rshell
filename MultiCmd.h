@@ -4,7 +4,7 @@
 #include "And.h"
 #include "Or.h"
 #include "SingleCmd.h"
-#include "Connector.h"
+#include "Base.h"
 
 #include <iostream>
 #include <stddef.h>
