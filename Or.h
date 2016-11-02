@@ -4,7 +4,7 @@
 #include "Base.h"
 #include <stddef.h>
 
-class Or : public Connector {
+class Or : public Base {
 	private:
 		Base* leftCmd;
 		Base* rightCmd;
