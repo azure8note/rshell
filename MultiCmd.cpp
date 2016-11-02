@@ -28,11 +28,11 @@ void MultiCmd::parse() {
   strcpy(cstr, cmdCpy.c_str());
   char* tok;
   
-  tok = strtok(cstr, ' ');
+  tok = strtok(cstr, " ");
   cmds.push_back(tok);
   
   for(unsigned i = 0; tok != NULL; i++){//changes string into vector of tokens
-    tok = strtok(NULL, ' ');
+    tok = strtok(NULL, " ");
     cmds.push_back(tok);
   }
 }
