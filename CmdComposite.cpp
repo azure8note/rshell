@@ -6,9 +6,9 @@ void CmdComposite::addCmd(char* cmd) {
 	string cmdCpy(cmd);
 	if (cmdCpy.find("&&") != string::npos ||
 	    cmdCpy.find("||") != string::npos) {
-		cmdList.push_back(new SingleCmd(cmd));
-	} else {
 		cmdList.push_back(new MultiCmd(cmd));
+	} else {
+		cmdList.push_back(new SingleCmd(cmd));
 	}
 
 	return;
