@@ -45,7 +45,7 @@ void MultiCmd::makeQueue() {
   
   /* Iterates the vector of commands, instantiating
      the correct corresponding object */
-  for(unsigned i = 0; i < cmds.size()-1; i++){
+  for(unsigned i = 0; i < cmds.size(); i++){
      if ((cmds.at(i))[0] == '&'){ // Checks if cmd is an && connector
        temp = new And(); // Creates And object and pushes it into queue
        cmdQueue.push(temp);
