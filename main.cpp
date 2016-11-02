@@ -11,10 +11,11 @@
 #include <cstring>
 
 using std::string;
+using std::cin;
 using std::cout;
 using std::endl;
 
-int main(int argc, char* argv[]) {
+int main() {
 	//bool flag = true;
 	char hostname[128];
 	char* usrname = getlogin();
@@ -24,10 +25,11 @@ int main(int argc, char* argv[]) {
 	cout << "\033c";
 	cout << usrname  << "@" << hostname << " $ ";
 	
-	
-	CmdComposite* cmdLine = new CmdComposite();
-	cmdLine->parse(argc, argv);
-	cmdLine->execute();
+	string cmdLine = "";
+	CmdComposite* cmdList = new CmdComposite();
+	getline(cin, cmdLine);	
+	cmdList->parse(cmdLine);
+	cmdList->execute();
 	
 	//flag = false;
     

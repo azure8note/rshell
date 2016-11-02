@@ -14,15 +14,15 @@ void CmdComposite::addCmd(char* cmd) {
 	return;
 }
 
-void CmdComposite::parse(int argc, char* argv[]) {
-	
+void CmdComposite::parse(string cmdLine) {
+	/*
 	string cmdLine = "";
 
 	for (int i = 1; i < argc; ++i) {
 		cmdLine += argv[i];
 		cmdLine += ' ';
 	}	
-	
+	*/
 	// cstr now contain c-string copy of cmdLine
 	char* cstr = new char [cmdLine.length() + 1];
 	strcpy(cstr, cmdLine.c_str());
