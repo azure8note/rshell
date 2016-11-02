@@ -44,8 +44,8 @@ public:
 	//Accessors and Mutators
 	void setCmd(char* str);
 	char* getCmd() const;
-	void setStatus(bool b);
-	bool getStatus() const;
+	void setCmdStatus(bool b);
+	bool getCmdStatus() const;
 	
 	
 	void makeQueue();// makes queue to be used for execute
