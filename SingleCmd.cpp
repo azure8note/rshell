@@ -1,12 +1,20 @@
 #include "SingleCmd.h"
 
-void SingleCmd::changeCmd(char* str){
+void SingleCmd::setCmd(char* str){
 	cmd = str;
 	return;
 }
 
-char* SingleCmd::readCmd() {
+char* SingleCmd::getCmd() const{
 	return cmd;
+}
+
+bool SingleCmd::getStatus() const{
+  return cmdStatus;
+}
+
+void SingleCmd::setStatus(bool b){
+  cmdStatus = b;
 }
 
 void SingleCmd::execute() {
@@ -49,6 +57,7 @@ void SingleCmd::execute() {
 	} 
 	else if(pid == 0){ //child processs
 	  if (execvp(args[0], args) < 0){
+		setStatus(false);
 		perror ("exec");
 	  }
 	}
