@@ -3,6 +3,7 @@
 #include "MultiCmd.h"
 #include "CmdComposite.h"
 
+#include <stdio.h>
 #include <stddef.h>
 #include <unistd.h>
 #include <iostream>
@@ -14,15 +15,16 @@ using std::cout;
 using std::endl;
 
 int main(int argc, char* argv[]) {
-    //bool flag = true;
+    bool flag = true;
     char hostname[128];
     char* usrname = getlogin();
     gethostname(hostname, sizeof hostname);
 
-   /* while (flag){*/
+    while (flag) {
 	cout << "\033c";
 	cout << usrname  << "@" << hostname << "$ ";
-	/*CmdComposite* cmdLine = new CmdComposite();
+	
+	CmdComposite* cmdLine = new CmdComposite();
 	cmdLine->parse(argc, argv);
 	cmdLine->execute();
 	
@@ -30,7 +32,7 @@ int main(int argc, char* argv[]) {
 	  //flag = false;
 	//}
 	flag = false;
-    }*/
+    }
 	
     return 0;
 }
