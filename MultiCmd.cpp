@@ -42,19 +42,16 @@ void MultiCmd::parse() { // Splits the command string into string tokens
 
 void MultiCmd::makeQueue() {
   
-  string an = "&&";
-  string o = "||";
-  
   Base* temp = 0;
   
   /* Iterates the vector of commands, instantiating
      the correct corresponding object */
   for(unsigned i = 0; i < cmds.size(); i++){
-     if (cmds.at(i) == an.c_str()){ // Checks if cmd is an && connector
+     if ((cmds.at(i))[0] == '&'){ // Checks if cmd is an && connector
        temp = new And(); // Creates And object and pushes it into queue
        cmdQueue.push(temp);
      }
-     else if (cmds.at(i) == o.c_str()){ // Creates Or object and pushes it into queue
+     else if ((cmds.at(i))[0] == '|'){ // Creates Or object and pushes it into queue
        temp = new Or();
        cmdQueue.push(temp);
      }
