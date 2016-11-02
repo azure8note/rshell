@@ -12,7 +12,11 @@ class Or : public Base {
 
 	public:
 		// Constructor
-		Or() : Base(), leftCmd(NULL), rightCmd(NULL), cmdStatus(false) {};
+		Or() : Base() {
+		  leftCmd = NULL;
+		  rightCmd = NULL;
+		  cmdStatus = false;
+		};
 
 		// Accessors for left, right command ptrs and cmdStatus
 		Base* getLeftCmd() const;
