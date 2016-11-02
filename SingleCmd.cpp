@@ -16,7 +16,7 @@ bool SingleCmd::getStatus() const{
 void SingleCmd::setStatus(bool b){
   cmdStatus = b;
 }
-----------------------------------
+//----------------------------------
 
 void SingleCmd::parse() {// seperates the command from its flag into two seperate tokens
   
