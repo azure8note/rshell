@@ -88,6 +88,9 @@ void MultiCmd::execute() {
     cmdQueue.pop();
     rightPtr = cmdQueue.front();
     cmdQueue.pop();
+    if (midPtr == NULL || rightPtr == NULL){
+      return;
+    }
     midPtr->execute();
   }
 }
