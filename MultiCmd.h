@@ -26,7 +26,9 @@ private:
 public:
 	//CONSTRUCTORS
 	MultiCmd() : Base() {};
-	MultiCmd(char* str) : Base(), cmdString(str) {};
+	MultiCmd(char* str) : Base(), {
+	  cmdString = str;
+	};
 
 	//Accessors and Mutators
 	void changeCmd(char* str);
