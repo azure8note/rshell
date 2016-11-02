@@ -27,8 +27,9 @@ void SingleCmd::execute() {
   char* args[64];
   
   tok = strtok(cmd, " ");
+  args[0] = tok;
   
-  for (unsigned i = 0; tok != NULL ; i++){
+  for (unsigned i = 1; tok != NULL ; i++){
     tok = strtok(NULL, " ");
     args[i] = tok;
   }
