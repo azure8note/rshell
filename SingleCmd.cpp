@@ -11,22 +11,49 @@ char* SingleCmd::readCmd() {
 
 void SingleCmd::execute() {
   
-  char* args[2];
-  args[0] = cmd;
-  args[1] = NULL;
+  if(cmd[0] == ' '){
+     string cmdCpy(cmd);
+     cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
+     char* cstr = new char[cmdCpy.length()+1];
+     strcpy(cstr, cmdCpy.c_str());
+     cmd = cstr;
+  }
   
+  string lowE = "exit";
+  string capE = "EXIT";
+  
+  char* tok;
+  
+  char* args[64];
+  
+  tok = strtok(cmd, " ");
+  
+  for (unsigned i = 0; tok != NULL ; i++){
+    tok = strtok(NULL, " ");
+    args[i] = tok;
+  }
+  
+  if (tok == lowE.c_str() || tok == capE.c_str()){
+    exit(0);
+  }
+
   pid_t pid;
+  pid_t wpid;
+  int status;
   
-	if ((pid = fork()) < 0) { /*fork a child process*/
+	pid = fork();
+  
+	if (pid < 0) { /*fork a child process*/
 	    perror("fork");
-	} else if(pid == 0){ //child processs
+	} 
+	else if(pid == 0){ //child processs
 	  if (execvp(args[0], args) < 0){
 		perror ("exec");
 	  }
 	}
 	else {//parent
-	  if (wait(0) == -1){
-	    perror("wait");
+	  do {
+	    wpid = waitpid(pid, &status, WUNTRACED);
 	  }
-	}
+	  while(!WIFEXITED(status) && !WIFSIGNALED(status));}
 }
