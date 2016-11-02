@@ -66,7 +66,7 @@ void MultiCmd::execute() {
   this->makeQueue();
   
   Base* leftPtr;
-  Base* midPtr;
+  Connector* midPtr;
   Base* rightPtr;
   SingleCmd* dum = new SingleCmd();
   
