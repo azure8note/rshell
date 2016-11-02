@@ -84,7 +84,7 @@ void MultiCmd::execute() {
   midPtr->execute();
   
   while (!cmdQueue.empty()){
-    dum->setStatus(midPtr->getCmdStatus());
+    dum->setCmdStatus(midPtr->getCmdStatus());
     midPtr = cmdQueue.front();
     cmdQueue.pop();
     rightPtr = cmdQueue.front();
