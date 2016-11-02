@@ -70,6 +70,6 @@ void SingleCmd::execute() {
 	  	do {
 	    		wpid = waitpid(pid, &status, WUNTRACED);
 	  	}
-	  	while(!WIFEXITED(status) && !WIFSIGNALED(status));
+	  	while(wpid <= -1);
 	}
 }
