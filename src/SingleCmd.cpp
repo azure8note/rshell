@@ -61,7 +61,7 @@ void SingleCmd::execute() {
 	} 
 	else if(pid == 0){ //child processs
 	  	if (execvp(args[0], args) < 0){// calls execute
-			setStatus(false);//in case it fails changes the status (for multi comand
+			setCmdStatus(false);//in case it fails changes the status (for multi comand
 			perror ("exec"); //error checks
 	  	}	
 	}
