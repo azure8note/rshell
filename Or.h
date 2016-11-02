@@ -1,10 +1,10 @@
 #ifndef OR_H
 #define OR_H
 
-#include "Base.h"
+#include "Connector.h"
 #include <stddef.h>
 
-class Or : public Base {
+class Or : public Connector {
 	private:
 		Base* leftCmd;
 		Base* rightCmd;
@@ -12,7 +12,7 @@ class Or : public Base {
 
 	public:
 		// Constructor
-		Or() : Base(), leftCmd(NULL), rightCmd(NULL), cmdStatus(false) {};
+		Or() : Connector(), leftCmd(NULL), rightCmd(NULL), cmdStatus(false) {};
 
 		// Accessors for left, right command ptrs and cmdStatus
 		Base* getLeftCmd() const;
