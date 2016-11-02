@@ -20,7 +20,7 @@ private:
 public:
 	//Constructor
 	CmdComposite() : Base() {};
-	void parse(int argc, char* argv[]);
+	void parse(string cmdLine);
 	void addCmd(char* cmd);
 	void execute();
 
