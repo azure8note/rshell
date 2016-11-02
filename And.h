@@ -12,7 +12,11 @@ class And : public Base {
 
 	public:
 		// Constructor
-		And() : Base(), leftCmd(NULL), rightCmd(NULL), cmdStatus(false)  {};
+		And() : Base() {
+		  leftCmd = NULL;
+		  rightCmd = NULL;
+		  cmdStatus = false;
+		};
 
 		// Accessors for left, right command ptrs and cmdStatus
 		Base* getLeftCmd() const;
