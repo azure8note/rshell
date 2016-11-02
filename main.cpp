@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
 	cout << usrname  << "@" << hostname << "$ ";
 	
 	
-	Base* cmdLine = new CmdComposite();
+	CmdComposite* cmdLine = new CmdComposite();
 	cmdLine->parse(argc, argv);
 	cmdLine->execute();
 	
