@@ -23,12 +23,14 @@ int main(int argc, char* argv[]) {
    /* while (flag){*/
 	cout << "\033c";
 	cout << usrname  << "@" << hostname << "$ ";
-	/*CmdComposite* cmdLine = new CmdComposite();
+	
+	
+	CmdComposite* cmdLine = new CmdComposite();
 	cmdLine->parse(argc, argv);
 	cmdLine->execute();
 	
-	flag = false;
-    }*/
+	//flag = false;
+    
 	
     return 0;
 }
