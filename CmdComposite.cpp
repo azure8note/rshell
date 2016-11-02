@@ -20,6 +20,7 @@ void CmdComposite::parse(int argc, char* argv[]) {
 
 	for (int i = 1; i < argc; ++i) {
 		cmdLine += argv[i];
+		cmdLine += ' ';
 	}	
 	
 	// cstr now contain c-string copy of cmdLine
@@ -33,7 +34,7 @@ void CmdComposite::parse(int argc, char* argv[]) {
 		addCmd(tokptr);
 		tokptr = strtok(NULL, ";"); // Continue scanning where prev successful call ended
 	}
-	delete[] cstr; // De-allocate cstr memory
+	//delete[] cstr; // De-allocate cstr memory
 	return;
 }
 
