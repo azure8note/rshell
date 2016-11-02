@@ -21,6 +21,7 @@ class SingleCmd: public Base {
 private:
 	char* cmd;
 	bool cmdStatus;
+	char* args[64];
 
 public:
 	//CONSTRUCTORS
@@ -34,6 +35,7 @@ public:
 	};
 
 	//Accessors and Mutators
+	void parse();
 	void setCmd(char* str);
 	char* getCmd() const;
 	void setStatus(bool b);
