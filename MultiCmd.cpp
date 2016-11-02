@@ -30,11 +30,11 @@ void MultiCmd::parse() {
   char* tok;
   
   tok = strtok(cmdString, ' ');
-  Cmds.push_back(tok);
+  cmds.push_back(tok);
   
   for(unsigned i = 0; tok != NULL; i++){//changes string into vector of tokens
     tok = strtok(NULL, ' ');
-    Cmds.push_back(tok);
+    cmds.push_back(tok);
   }
 }
 
@@ -45,17 +45,17 @@ void MultiCmd::makeQueue() {
   
   Base* temp = 0;
   
-  for(unsigned i = 0; i < reversedCmds.size(); i++){
-     if (Cmds.at(i) == an.c_str()){
+  for(unsigned i = 0; i < cmds.size(); i++){
+     if (cmds.at(i) == an.c_str()){
        temp = new And();
        cmdQueue.push_back(temp);
      }
-     else if (Cmds.at(i) == o.c_str()){
+     else if (cmds.at(i) == o.c_str()){
        temp = new Or();
        cmdQueue.push_back(temp);
      }
      else {
-       temp = new SingleCmd(Cmds.at(i));
+       temp = new SingleCmd(cmds.at(i));
        cmdQueue.push_back(temp);
      }
   }e

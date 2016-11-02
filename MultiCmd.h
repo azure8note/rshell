@@ -17,10 +17,11 @@
 #include <queue>
 #include <vector>
 
-using std::stack
+using std::queue;
 using std::string;
 using std::cout;
 using std::endl;
+using std::vector;
 
 
 class MultiCmd: public Base {
@@ -29,7 +30,7 @@ private:
 	char* cmdString;
 	bool cmdStatus;
 	queue<Base*> cmdQueue;
-	vector<char*> Cmds;
+	vector<char*> cmds;
 public:
 	//CONSTRUCTORS
 	MultiCmd() : Base() {

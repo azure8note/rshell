@@ -20,15 +20,17 @@ class SingleCmd: public Base {
 
 private:
 	char* cmd;
-	bool cmdStatus = true;
+	bool cmdStatus;
 
 public:
 	//CONSTRUCTORS
 	SingleCmd() : Base() {
 	  *cmd = '\0';
+	  cmdStatus = true;
 	};
 	SingleCmd(char* str) : Base() {
 	  cmd = str;
+	  cmdStatus = true;
 	};
 
 	//Accessors and Mutators
