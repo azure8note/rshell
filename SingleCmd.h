@@ -13,6 +13,8 @@
 #include <stddef.h>
 
 using std::string;
+using std::cout;
+using std::endl;
 
 class SingleCmd: public Base {
 
