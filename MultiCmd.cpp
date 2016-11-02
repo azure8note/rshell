@@ -1,5 +1,5 @@
 #include "MultiCmd.h"
-
+// getters and setters------------
 void MultiCmd::setCmd(char* str){
 	cmdString = str;
 	return;
@@ -17,7 +17,9 @@ bool MultiCmd::getStatus() const{
 	return cmdStatus;
 }
 
-void MultiCmd::parse() {
+//------------------------------------
+
+void MultiCmd::parse() { // splits up the comand string into string tokens
   string cmdCpy(cmdString);
   char* cstr = new char[cmdCpy.length() + 1];
  
@@ -44,17 +46,17 @@ void MultiCmd::makeQueue() {
   
   Base* temp = 0;
   
-  for(unsigned i = 0; i < cmds.size(); i++){
-     if (cmds.at(i) == an.c_str()){
-       temp = new And();
+  for(unsigned i = 0; i < cmds.size(); i++){//loops through all commands turing them into differnet objects
+     if (cmds.at(i) == an.c_str()){// checks to see if the cmd is a && connector
+       temp = new And(); // creats and && object and pushes it into the queue so we know so it keesp the order
        cmdQueue.push(temp);
      }
-     else if (cmds.at(i) == o.c_str()){
+     else if (cmds.at(i) == o.c_str()){ // creates and || object and and is pushed into queue
        temp = new Or();
        cmdQueue.push(temp);
      }
      else {
-       temp = new SingleCmd(cmds.at(i));
+       temp = new SingleCmd(cmds.at(i)); // neither && or || so it makes a single command and pushes it into queue
        cmdQueue.push(temp);
      }
   }
