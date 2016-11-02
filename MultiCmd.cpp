@@ -1,5 +1,6 @@
 #include "MultiCmd.h"
-// getters and setters------------
+
+// Accessors and Mutators-------------
 void MultiCmd::setCmd(char* str){
 	cmdString = str;
 	return;
@@ -19,21 +20,21 @@ bool MultiCmd::getStatus() const{
 
 //------------------------------------
 
-void MultiCmd::parse() { // splits up the comand string into string tokens
+void MultiCmd::parse() { // Splits the command string into string tokens
   string cmdCpy(cmdString);
   char* cstr = new char[cmdCpy.length() + 1];
  
-  if(cmdString[0] == ' '){// removes space in front of ;
+  if(cmdString[0] == ' ') { // Removes space behind ; 
 	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
   }
   
-  strcpy(cstr, cmdCpy.c_str());
+  strcpy(cstr, cmdCpy.c_str()); // Creates mutable c-string copy of cmdCpy
   char* tok;
   
   tok = strtok(cstr, " ");
   cmds.push_back(tok);
   
-  for(unsigned i = 0; tok != NULL; i++){//changes string into vector of tokens
+  for(unsigned i = 0; tok != NULL; i++){ // Adds string tokens into vector of tokens
     tok = strtok(NULL, " ");
     cmds.push_back(tok);
   }
@@ -46,24 +47,25 @@ void MultiCmd::makeQueue() {
   
   Base* temp = 0;
   
-  for(unsigned i = 0; i < cmds.size(); i++){//loops through all commands turing them into differnet objects
-     if (cmds.at(i) == an.c_str()){// checks to see if the cmd is a && connector
-       temp = new And(); // creats and && object and pushes it into the queue so we know so it keesp the order
+  /* Iterates the vector of commands, instantiating
+     the correct corresponding object */
+  for(unsigned i = 0; i < cmds.size(); i++){
+     if (cmds.at(i) == an.c_str()){ // Checks if cmd is an && connector
+       temp = new And(); // Creates And object and pushes it into queue
        cmdQueue.push(temp);
      }
-     else if (cmds.at(i) == o.c_str()){ // creates and || object and and is pushed into queue
+     else if (cmds.at(i) == o.c_str()){ // Creates Or object and pushes it into queue
        temp = new Or();
        cmdQueue.push(temp);
      }
-     else {
-       temp = new SingleCmd(cmds.at(i)); // neither && or || so it makes a single command and pushes it into queue
+     else { // Not && or || connector
+       temp = new SingleCmd(cmds.at(i)); // Creates SingleCmd and pushes it into queue
        cmdQueue.push(temp);
      }
   }
 }
 
-void MultiCmd::execute() {
-  
+void MultiCmd::execute() {  
   this->parse();
   this->makeQueue();
   
