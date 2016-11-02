@@ -107,7 +107,7 @@ void MultiCmd::execute() {
 		args[0] = tok;
 		args[1] = NULL;
 		
-		pid = fork();/* forks child process
+		pid = fork(); forks child process
 		
 		if (pid == -1) {
 		      perror("fork");
