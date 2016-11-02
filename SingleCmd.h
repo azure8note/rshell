@@ -20,17 +20,22 @@ class SingleCmd: public Base {
 
 private:
 	char* cmd;
+	bool cmdStatus = true;
 
 public:
 	//CONSTRUCTORS
-	SingleCmd() : Base() {};
+	SingleCmd() : Base() {
+	  *cmd = '\0';
+	};
 	SingleCmd(char* str) : Base() {
 	  cmd = str;
 	};
 
 	//Accessors and Mutators
-	void changeCmd(char* str);
-	char* readCmd();
+	void setCmd(char* str);
+	char* getCmd() const;
+	void setStatus(bool b);
+	bool getStatus() const;
 
 	//The main function used by the composite pattern
 	void execute();
