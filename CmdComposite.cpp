@@ -15,16 +15,18 @@ void CmdComposite::addCmd(char* cmd) {
 }
 
 void CmdComposite::parse(int argc, char* argv[]) {
-	//string cmdLine = readCmd();
+	
 	string cmdLine = "";
 
-	for (int i = 0; i < argc; ++i) {
+	for (int i = 1; i < argc; ++i) {
 		cmdLine += argv[i];
 	}	
-
-	char* cstr = new char [cmdLine.length() + 1];
-	strcpy(cstr, cmdLine.c_str()); // cstr now contain c-string copy of cmdLine
 	
+	// cstr now contain c-string copy of cmdLine
+	char* cstr = new char [cmdLine.length() + 1];
+	strcpy(cstr, cmdLine.c_str());
+	
+
 	// Set tokptr to beginning of first token
 	char* tokptr = strtok(cstr, ";"); // Tokens split by ; can be single or multi commands
 	while (tokptr != NULL) {
