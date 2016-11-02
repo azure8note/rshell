@@ -23,7 +23,7 @@ bool MultiCmd::getStatus() {
 }
 
 void MultiCmd::execute() {
-
+  
 	char* cmd;
 	cmd = strtok(cmdString, " ");
 	char* args[2];
@@ -45,7 +45,7 @@ void MultiCmd::execute() {
 		      if( cmdCpy == "&&" && cmdStatus){ // && case
 			  cmd = strtok(cmdString, " "); //gets the next command
 			  args[0] = cmd;
-			  if (execvp(cmd, args) < 0){ //? idk if this works
+			  if (execvp(args[0], args) < 0){ //? idk if this works
 				  cmdStatus = false;
 				  cout << "Didn't execute" << endl;
 			  }
@@ -58,7 +58,7 @@ void MultiCmd::execute() {
 			  cmd = strtok(cmdString, " "); //gets the next command
 			  args[0] = cmd;
 			  
-			  if (execvp(cmd, args) < 0){ //? idk if this works
+			  if (execvp(args[0], args) < 0){ //? idk if this works
 				  cmdStatus = false;
 				  cout << "Didn't execute" << endl;
 			  }
@@ -67,7 +67,7 @@ void MultiCmd::execute() {
 				  cmd = strtok(NULL, " ");
 			  }
 		      }
-		      else if (execvp(cmd, args) < 0){ //? idk if this works //general case
+		      else if (execvp(args[0], args) < 0){ //? idk if this works //general case
 			   cmdStatus = false;
 			   cout << "Didn't execute" << endl;
 		      }
