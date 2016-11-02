@@ -1,7 +1,7 @@
 #ifndef AND_H
 #define AND_H
 
-#include "Connector.h"
+#include "Base.h"
 #include <stddef.h>
 
 class And : public Connector {
