@@ -2,7 +2,7 @@
 #define AND_H
 
 #include "Base.h"
-#include <stddef>
+#include <stddef.h>
 
 class And : public Base {
 	private:
@@ -12,7 +12,7 @@ class And : public Base {
 
 	public:
 		// Constructor
-		And() : Base(), leftCmd(NULL), rightCmd(NULL);
+		And() : Base(), leftCmd(NULL), rightCmd(NULL) {};
 
 		// Accessors for left, right command ptrs and cmdStatus
 		Base* getLeftCmd() const;
