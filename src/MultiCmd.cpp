@@ -49,6 +49,7 @@ void MultiCmd::makeQueue() {
      if ((cmds.at(i))[0] == '&'){ // Checks if cmd is an && connector
        temp = new And(); // Creates And object and pushes it into queue
        cmdQueue.push(temp);
+ 
      }
      else if ((cmds.at(i))[0] == '|'){ // Creates Or object and pushes it into queue
        temp = new Or();
@@ -71,13 +72,13 @@ void MultiCmd::execute() {
   SingleCmd* dum = new SingleCmd();
   
   leftPtr = cmdQueue.front();
-  //cout << "leftpointer set to: " << cmdQueue.front();
+  //cout << "leftpointer set to: " << cmdQueue.front() << endl;
   cmdQueue.pop();
   midPtr = cmdQueue.front();
-  //cout << "midpointer set to: " << cmdQueue.front();
+  //cout << "midpointer set to: " << cmdQueue.front() << endl;
   cmdQueue.pop();
   rightPtr = cmdQueue.front();
-  //cout << "rightpointer set to: " << cmdQueue.front();
+  //cout << "rightpointer set to: " << cmdQueue.front() << endl;
   cmdQueue.pop();
   
   midPtr->setLeftCmd(leftPtr);
