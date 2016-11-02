@@ -24,12 +24,11 @@ void MultiCmd::parse() {
 	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
 	char* cstr = new char[cmdCpy.length()+1];
 	strcpy(cstr, cmdCpy.c_str());
-	cmdString = cstr;
   }
   
   char* tok;
   
-  tok = strtok(cmdString, ' ');
+  tok = strtok(cstr, ' ');
   cmds.push_back(tok);
   
   for(unsigned i = 0; tok != NULL; i++){//changes string into vector of tokens
@@ -59,6 +58,7 @@ void MultiCmd::makeQueue() {
        cmdQueue.push(temp);
      }
   }
+}
 
 void MultiCmd::execute() {
   
