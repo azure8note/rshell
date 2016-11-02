@@ -18,7 +18,7 @@ void SingleCmd::setStatus(bool b){
 }
 ----------------------------------
 
-void SingleCmd::parse() {// seperates the command form its flag into two seperate tokens
+void SingleCmd::parse() {// seperates the command from its flag into two seperate tokens
   
   char* tok;
   
