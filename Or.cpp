@@ -39,7 +39,7 @@ void Or::execute() {
 		leftCmd->execute(); // If not a dummy cmd, execute
 	} 
  
-	if(leftCmd->getCmdStatus()) { 
+	if(!leftCmd->getCmdStatus()) { 
 		rightCmd->execute();
 		setCmdStatus(true); // Sets this->cmdStatus to true
 	} else {
