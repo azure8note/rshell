@@ -10,6 +10,7 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <stdlib.h>
+#include <stddef.h>
 
 using std::string;
 using std::cout;

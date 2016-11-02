@@ -15,24 +15,21 @@ using std::cout;
 using std::endl;
 
 int main(int argc, char* argv[]) {
-    bool flag = true;
-    char hostname[128];
-    char* usrname = getlogin();
-    gethostname(hostname, sizeof hostname);
-
-    while (flag) {
+	//bool flag = true;
+	char hostname[128];
+	char* usrname = getlogin();
+	gethostname(hostname, sizeof hostname);
+    
+	/* while (flag){*/
 	cout << "\033c";
 	cout << usrname  << "@" << hostname << "$ ";
 	
-	CmdComposite* cmdLine = new CmdComposite();
+	
+	Base* cmdLine = new CmdComposite();
 	cmdLine->parse(argc, argv);
 	cmdLine->execute();
 	
-	//if (exit) {
-	  //flag = false;
-	//}
-	flag = false;
-    }
-	
-    return 0;
+	//flag = false;
+    
+	return 0;
 }
