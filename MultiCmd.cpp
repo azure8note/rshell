@@ -48,17 +48,17 @@ void MultiCmd::makeQueue() {
   for(unsigned i = 0; i < cmds.size(); i++){
      if (cmds.at(i) == an.c_str()){
        temp = new And();
-       cmdQueue.push_back(temp);
+       cmdQueue.push(temp);
      }
      else if (cmds.at(i) == o.c_str()){
        temp = new Or();
-       cmdQueue.push_back(temp);
+       cmdQueue.push(temp);
      }
      else {
        temp = new SingleCmd(cmds.at(i));
-       cmdQueue.push_back(temp);
+       cmdQueue.push(temp);
      }
-  }e
+  }
 
 void MultiCmd::execute() {
   
@@ -71,11 +71,11 @@ void MultiCmd::execute() {
   Base* dum = new SingleCmd();
   
   leftPtr = cmdQueue.front();
-  cmdQueue.pop_front();
+  cmdQueue.pop();
   midPtr = cmdQueue.front();
-  cmdQueue.pop_front();
+  cmdQueue.pop();
   rightPtr = cmdQueue.front();
-  cmdQueue.pop_front();
+  cmdQueue.pop();
   
   midPtr->setLeft(leftPtr);
   midPtr->setRight(rightPtr);
@@ -85,9 +85,9 @@ void MultiCmd::execute() {
   while (!cmdQueue.empty()){
     dum->setStatus(midPtr->getStatus());
     midPtr = cmdQueue.front();
-    cmdQueue.pop_front();
+    cmdQueue.pop();
     rightPtr = cmdQueue.front();
-    cmdQueue.pop_front();
+    cmdQueue.pop();
     midPtr->execute();
   }
 }
