@@ -71,10 +71,13 @@ void MultiCmd::execute() {
   SingleCmd* dum = new SingleCmd();
   
   leftPtr = cmdQueue.front();
+  //cout << "leftpointer set to: " << cmdQueue.front();
   cmdQueue.pop();
   midPtr = cmdQueue.front();
+  //cout << "midpointer set to: " << cmdQueue.front();
   cmdQueue.pop();
   rightPtr = cmdQueue.front();
+  //cout << "rightpointer set to: " << cmdQueue.front();
   cmdQueue.pop();
   
   midPtr->setLeftCmd(leftPtr);
