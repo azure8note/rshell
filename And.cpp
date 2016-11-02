@@ -23,7 +23,7 @@ void And::setLeftCmd(Base* leftCmd) {
 
 // Sets rightCmd to Base* parameter rightCmd
 void And::setRightCmd(Base* rightCmd) {
-	this->rightCmd = rightCmd;}
+	this->rightCmd = rightCmd;
 }
 
 // Sets cmdStatus to bool value passed in
