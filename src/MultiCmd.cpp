@@ -63,6 +63,10 @@ void MultiCmd::parse() { // Splits the command string into string tokens
       cmds.push_back(cstr2);
     }
     
+    if(cmdCpy[0] == ' ') { // Removes space behind ; 
+	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
+    }
+    
     if (cmdCpy.find(andDelimiter) < cmdCpy.find(orDelimiter)) {//str::npos returns largest unsigned value
       index = cmdCpy.find(andDelimiter);
     } 
@@ -70,11 +74,7 @@ void MultiCmd::parse() { // Splits the command string into string tokens
       index = cmdCpy.find(orDelimiter);
     }
     else {
-      index = cmdCpy.size()-1;
-    }
-    
-    if(cmdCpy[0] == ' ') { // Removes space behind ; 
-	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
+      index = cmdCpy.size();
     }
     
     temp = cmdCpy.substr(0, index);
