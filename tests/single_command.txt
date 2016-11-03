@@ -1,0 +1,19 @@
+cat makefile
+cp makefile makefileCpy
+ls
+date
+echo testing
+hostname
+mkdir TESTING
+ls -a
+mv TESTING TESTED
+ls -l
+ps
+pwd
+rm -f makefileCpy
+ls
+rm -r TESTED
+mkdir FINAL
+ls
+rmdir FINAL
+uname
