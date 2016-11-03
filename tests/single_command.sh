@@ -1,12 +1,5 @@
 #!/bin/sh
-$./a.out
-echo "Testing Single Commands"
+$./rshell
+echo "Testing Single Commands...\n"
 
-
-echo "ls\n"
-
-echo "ls -l\n"
-echo "hostname;pwd;ls\n"
-echo "\n"
-
-
+rshell/bin/rshell < single_command.txt
