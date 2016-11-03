@@ -32,10 +32,10 @@ int main() {
 		
 	while(1) {
 		cout << usrname  << "@" << hostname << " $ ";
-		getline(cin, cmdLine, '\n');
+		getline(cin, cmdLine);
 		cmdList->parse(cmdLine);
-		cmdList->execute(); // exit command is checked for in execute()		
-		cin.clear();
+		cmdList->execute(); // exit command is checked for in execute()
+		cmdList->clearCmds();
 	}  
 	return 0;
 }
