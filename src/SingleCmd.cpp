@@ -46,8 +46,10 @@ void SingleCmd::execute() {
   
   string lowE = "exit";
   string capE = "EXIT";
+
+  string argsCpy(args[0]);
  
-  if (*args[0] == *lowE.c_str() || *args[0] == *capE.c_str()){ // checks exit case
+  if (argsCpy == lowE.c_str() || argsCpy == capE.c_str()) { // checks exit case
     exit(0);
   }
 
