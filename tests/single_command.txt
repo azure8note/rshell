@@ -8,12 +8,10 @@ mkdir TESTING
 ls -a
 mv TESTING TESTED
 ls -l
-ps
-pwd
+ps;pwd
 rm -f makefileCpy
 ls
-rm -r TESTED
-mkdir FINAL
-ls
-rmdir FINAL
+rm -r TESTED; mkdir FINAL; ls
+rmdir FINAL ; ls
 uname
+exit
