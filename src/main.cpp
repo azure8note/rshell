@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <limits.h>
 
 using std::string;
 using std::cin;
@@ -31,6 +32,7 @@ int main() {
 	cmdList->execute();*/
 		
 	while(1) {
+		string cmdLine2 = "";
 		cout << usrname  << "@" << hostname << " $ ";
 		getline(cin, cmdLine);
 		cmdList->parse(cmdLine);

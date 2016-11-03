@@ -1,0 +1,6 @@
+ls && exit
+pwd || exit
+hostname && exit && ls -a
+hostname && ls -a || pwd && exit
+exit && uname
+exit
