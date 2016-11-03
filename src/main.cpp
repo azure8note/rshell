@@ -22,20 +22,20 @@ int main() {
 	gethostname(hostname, sizeof hostname);
     
 	cout << "\033c";
-	cout << usrname  << "@" << hostname << " $ ";
+	//cout << usrname  << "@" << hostname << " $ ";
 	
 	string cmdLine = "";
 	CmdComposite* cmdList = new CmdComposite();
-	getline(cin, cmdLine);	
+	/*getline(cin, cmdLine);	
 	cmdList->parse(cmdLine);
-	cmdList->execute();
-	/*	
-	while() {
+	cmdList->execute();*/
+		
+	while(1) {
 		cout << usrname  << "@" << hostname << " $ ";
-		getline(cin, cmdLine);	
+		getline(cin, cmdLine, '\n');
 		cmdList->parse(cmdLine);
-		cmdList->execute(); // exit command is checked for in execute()
-	}
-	*/  
+		cmdList->execute(); // exit command is checked for in execute()		
+		cin.clear();
+	}  
 	return 0;
 }
