@@ -44,7 +44,7 @@ void MultiCmd::parse() { // Splits the command string into string tokens
     }
     
     temp = cmdCpy.substr(0, index);
-    cmdCpy = cmdCpy.substr(index, cmdCpy.size()-index+1);
+    cmdCpy = cmdCpy.substr(index, cmdCpy.size()-index);
     strcpy(cstr, temp.c_str());
     cmds.push_back(cstr);
  
@@ -58,7 +58,7 @@ void MultiCmd::parse() { // Splits the command string into string tokens
     
     if (index != cmdCpy.size()) {
       connector = cmdCpy.substr(0, 2);
-      cmdCpy = cmdCpy.substr(2, cmdCpy.size()-1);
+      cmdCpy = cmdCpy.substr(2, cmdCpy.size()-2);
       strcpy(cstr2, connector.c_str());
       cmds.push_back(cstr2);
     }
@@ -79,6 +79,7 @@ void MultiCmd::parse() { // Splits the command string into string tokens
     
     temp = cmdCpy.substr(0, index);
     char* cstr3 = new char[temp.size()];
+    cmdCpy = cmdCpy.substr(index, cmdCpy.size()-index);
     strcpy(cstr3, temp.c_str());
     cmds.push_back(cstr3);
   }
