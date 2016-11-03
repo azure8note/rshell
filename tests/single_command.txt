@@ -1,5 +1,4 @@
-cat makefile
-cp makefile makefileCpy
+cat single_command.txt
 ls
 date
 echo testing
@@ -9,7 +8,6 @@ ls -a
 mv TESTING TESTED
 ls -l
 ps;pwd
-rm -f makefileCpy
 ls
 rm -r TESTED; mkdir FINAL; ls
 rmdir FINAL ; ls
