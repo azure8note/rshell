@@ -28,15 +28,69 @@ void MultiCmd::parse() { // Splits the command string into string tokens
 	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
   }
   
-  strcpy(cstr, cmdCpy.c_str()); // Creates mutable c-string copy of cmdCpy
-  char* tok;
+  //strcpy(cstr, cmdCpy.c_str()); // Creates mutable c-string copy of cmdCpy
+  
+  string andDelimiter = "&&";
+  string orDelimiter = "||";
+  
+  unsigned index = 0;
+  string temp;
+  string connector;
+  
+    if (cmdCpy.find(andDelimiter) < cmdCpy.find(orDelimiter)) {//str::npos returns largest unsigned value
+      index = cmdCpy.find(andDelimiter);
+    } else {
+      index = cmdCpy.find(orDelimiter);
+    }
+    
+    temp = cmdCpy.substr(0, index);
+    cmdCpy = cmdCpy.substr(index, cmdCpy.size()-index+1);
+    strcpy(cstr, temp.c_str());
+    cmds.push_back(cstr);
+ 
+  
+  while (cmdCpy.find(andDelimiter) != string::npos || cmdCpy.find(orDelimiter) != string::npos){
+    char* cstr2 = new char[2];
+    
+    if(cmdCpy[0] == ' ') { // Removes space behind ; 
+	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
+    }
+    
+    if (index != cmdCpy.size()) {
+      connector = cmdCpy.substr(0, 2);
+      cmdCpy = cmdCpy.substr(2, cmdCpy.size()-1);
+      strcpy(cstr2, connector.c_str());
+      cmds.push_back(cstr2);
+    }
+    
+    if (cmdCpy.find(andDelimiter) < cmdCpy.find(orDelimiter)) {//str::npos returns largest unsigned value
+      index = cmdCpy.find(andDelimiter);
+    } 
+    else if(cmdCpy.find(andDelimiter) > cmdCpy.find(orDelimiter)) {
+      index = cmdCpy.find(orDelimiter);
+    }
+    else {
+      index = cmdCpy.size()-1;
+    }
+    
+    if(cmdCpy[0] == ' ') { // Removes space behind ; 
+	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
+    }
+    
+    temp = cmdCpy.substr(0, index);
+    char* cstr3 = new char[temp.size()];
+    strcpy(cstr3, temp.c_str());
+    cmds.push_back(cstr3);
+  }
+/*  char* tok;
   
   tok = strtok(cstr, " ");
   
   for(unsigned i = 0; tok != NULL; i++){ // Adds string tokens into vector of tokens
     cmds.push_back(tok);
     tok = strtok(NULL, " ");
-  }
+    
+  }*/
 }
 
 void MultiCmd::makeQueue() {
