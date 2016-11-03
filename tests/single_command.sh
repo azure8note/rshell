@@ -1,7 +1,7 @@
 #!/bin/sh
-
+$./a.out
 echo "Testing Single Commands"
-./a.out
+
 
 echo "ls\n"
 
