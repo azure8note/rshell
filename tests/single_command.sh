@@ -1,5 +1,7 @@
 #!/bin/sh
-$./rshell
+
+cd $OLDPWD
+
 echo "Testing Single Commands...\n"
 
-rshell/bin/rshell < single_command.txt
+rshell/src/bin/rshell < single_command.txt
