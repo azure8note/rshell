@@ -26,7 +26,7 @@ class Or : public Base {
 		// Mutators for leftCmd, rightCmd, and cmdStatus 
 		void setLeftCmd(Base* leftCmd);
 		void setRightCmd(Base* rightCmd);
-		void setCmdStatus(bool stat);
+		void setCmdStatus(bool status);
 
 		// Calls execute 
 		void execute();

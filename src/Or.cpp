@@ -27,8 +27,8 @@ void Or::setRightCmd(Base* rightCmd) {
 }
 
 // Sets cmdStatus to bool value passed in
-void Or::setCmdStatus(bool stat) {
-	this->cmdStatus = stat;
+void Or::setCmdStatus(bool status) {
+	this->cmdStatus = status;
 }
 
 /* Calls leftCmd's execute(). If leftCmd executed
@@ -41,8 +41,8 @@ void Or::execute() {
  
 	if(!leftCmd->getCmdStatus()) { 
 		rightCmd->execute();
-		setCmdStatus(true); // Sets this->cmdStatus to true
+		setCmdStatus(rightCmd->getCmdStatus()); // Sets this->cmdStatus to rightCmd's status
 	} else {
-		setCmdStatus(false); // Sets this->cmdStatus to false
+		setCmdStatus(true); // Sets this->cmdStatus to true
 	}
 }

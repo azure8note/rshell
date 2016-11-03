@@ -17,6 +17,7 @@ class Base {
     		virtual bool getCmdStatus() const {return false;};
     		virtual void setLeftCmd(Base* leftCmd) {};
     		virtual void setRightCmd(Base* rightCmd) {};
+		virtual void setCmdStatus(bool) {};
     		virtual char* getCmd() const {return NULL;};
 };
 
