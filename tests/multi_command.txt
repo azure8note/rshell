@@ -1,12 +1,7 @@
-cat makefile && cp makefile makefileCpy && ls
+ps && date && ls
 echo testing || uname || hostname
-mkdir TESTING && ls -a 
-mv TESTING TESTED
-ls -l
-ps;pwd
-rm -f makefileCpy
-ls
-rm -r TESTED; mkdir FINAL; ls
-rmdir FINAL ; ls
-uname
-exit
+mkdir TESTING && mv TESTING TESTED || ls -a
+ls -l || ps && pwd
+echo hello && ls && uname || hostname
+rm -r TESTED ||  mkdir FINAL || ls
+hostname && exit
