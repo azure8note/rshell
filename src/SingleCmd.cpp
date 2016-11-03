@@ -47,7 +47,7 @@ void SingleCmd::execute() {
   string lowE = "exit";
   string capE = "EXIT";
  
-  if (args[0] == lowE.c_str() || args[0] == capE.c_str()){ // checks exit case
+  if (*args[0] == *lowE.c_str() || *args[0] == *capE.c_str()){ // checks exit case
     exit(0);
   }
 
@@ -67,9 +67,12 @@ void SingleCmd::execute() {
 	}
 	else {//parent
   		pid_t wpid; // waits for child to finish
-	  	do {
-	    		wpid = waitpid(pid, &status, WUNTRACED);
-	  	}
-	  	while(wpid <= -1);
+	  	
+		wpid = waitpid(pid, &status, WUNTRACED);
+	  	
+		while (wpid <= -1){
+		  perror("wait");
+		  wpid = waitpid(pid, &status, WUNTRACED);
+		} 
 	}
 }
