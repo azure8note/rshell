@@ -14,8 +14,7 @@ using std::string;
 
 class CmdComposite : public Base {
 private:
-	vector <Base*> cmdList;
-	
+	vector <Base*> cmdList;	
 	
 public:
 	//Constructor
@@ -27,6 +26,9 @@ public:
 
 	//Accessor
 	Base* getCmd(int a) const;
+	//Mutator
+	void clearCmds();
+	
 };
 
 #endif

@@ -1,11 +1,6 @@
-cat makefile
-cp makefile makefileCpy
-ls
-date
-echo testing
-hostname
-mkdir TESTING
-ls -a
+cat makefile && cp makefile makefileCpy && ls
+echo testing || uname || hostname
+mkdir TESTING && ls -a 
 mv TESTING TESTED
 ls -l
 ps;pwd
