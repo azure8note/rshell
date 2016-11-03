@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <limits.h>
 
 using std::string;
 using std::cin;
@@ -31,11 +32,12 @@ int main() {
 	cmdList->execute();*/
 		
 	while(1) {
+		string cmdLine2 = "";
 		cout << usrname  << "@" << hostname << " $ ";
-		getline(cin, cmdLine, '\n');
-		cmdList->parse(cmdLine);
-		cmdList->execute(); // exit command is checked for in execute()		
-		cin.clear();
+		//cin.clear();
+		getline(cin, cmdLine2);
+		cmdList->parse(cmdLine2);
+		cmdList->execute(); // exit command is checked for in execute()
 	}  
 	return 0;
 }
