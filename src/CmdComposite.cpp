@@ -2,6 +2,10 @@
 #include "SingleCmd.h"
 #include "MultiCmd.h"
 
+void CmdComposite::clearCmds() {
+	cmdList.clear();
+}
+
 void CmdComposite::addCmd(char* cmd) {
 	string cmdCpy(cmd); // Create string of cmd
 	if (cmdCpy.find("&&") != string::npos ||
