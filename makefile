@@ -1,22 +1,32 @@
 CC=g++
 CC_FLAGS= -g -Wall -Werror -ansi -pedantic
-EXEC=rshell
-SOURCES=$(wildcard *.cpp)
-OBJECTS=$(SOURCES:.cpp=.o)
-SAVFILES1=$(wildcard *.cpp~)
-SAVFILES2=$(wildcard *.h~)
 
-all: main.cpp $(OBJECTS) |bin
-	$(CC) $(OBJECTS) -o $(EXEC) && mv rshell bin/
+all: CmdComposite And MultiCmd SingleCmd Or
+	mkdir -p bin
+	$(CC) $(CC_FLAGS) ./src/main.cpp CmdComposite.o And.o MultiCmd.o SingleCmd.o Or.o -o ./bin/rshell
 
-rshell: $(OBJECTS) |bin
-	$(CC) $(OBJECTS) -o $(EXEC) && mv rshell bin/ 
+rshell: CmdComposite And MultiCmd SingleCmd Or
+	mkdir -p bin
+	$(CC) $(CC_FLAGS) ./src/main.cpp CmdComposite.o And.o MultiCmd.o SingleCmd.o Or.o -o ./bin/rshell
 
-%.o: %.cpp
-	$(CC) -c $(CC_FLAGS) $< -o $@
+CmdComposite:
+	$(CC) $(CC_FLAGS) -c ./src/CmdComposite.cpp
 
-bin: 
-	@mkdir -p bin
+And: 
+	$(CC) $(CC_FLAGS) -c ./src/And.cpp
+
+MultiCmd:
+	$(CC) $(CC_FLAGS) -c ./src/MultiCmd.cpp
+
+SingleCmd:
+	$(CC) $(CC_FLAGS) -c ./src/SingleCmd.cpp
+
+Or:
+	$(CC) $(CC_FLAGS) -c ./src/Or.cpp
 
 clean:
-	rm -f $(EXEC) $(OBJECTS) $(SAVFILES1) $(SAVFILES2)
+	rm -f *.o
+	rm -f *.cpp~
+	rm -f *.h~
+	rm -r bin
+
