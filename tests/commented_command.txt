@@ -1,5 +1,5 @@
 #ls -a; ls -l; pwd; hostname
-ls; hostname #Hi my name is bob; uname; ls -a
-pwd && hostname && ls #hahahahhahah || echo "ha"
-hostname && #hahah exit
+echo "test2\n"; hostname #Hi my name is bob; uname; ls -a
+echo "test3\n" && hostname && ls #hahahahhahah || echo "ha"
+echo "test4\n" && #hahah exit
 exit

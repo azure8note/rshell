@@ -2,4 +2,4 @@
 
 echo "Testing Exit...\n"
 
-../src/bin/rshell < exit.txt
+../bin/rshell < exit.txt
