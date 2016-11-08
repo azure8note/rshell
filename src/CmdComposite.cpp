@@ -12,7 +12,6 @@ void CmdComposite::addCmd(char* cmd) {
 	string cmdCpy(cmd); // Create string of cmd
 	if (cmdCpy.find("&&") == 0 || cmdCpy.find("||") == 0) {
 		throw "INVALID INPUT: CANNOT BEGIN COMMAND WITH CONNECTOR";
-		return;
 	}
 	if (cmdCpy.find("&&") != string::npos ||
 	    cmdCpy.find("||") != string::npos) { // Check for any connectors
