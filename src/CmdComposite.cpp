@@ -2,12 +2,18 @@
 #include "SingleCmd.h"
 #include "MultiCmd.h"
 
+using std::cerr;
+
 void CmdComposite::clearCmds() {
 	cmdList.clear();
 }
 
 void CmdComposite::addCmd(char* cmd) {
 	string cmdCpy(cmd); // Create string of cmd
+	if (cmdCpy.find("&&") == 0 || cmdCpy.find("||") == 0) {
+		throw "INVALID INPUT: CANNOT BEGIN COMMAND WITH CONNECTOR";
+		return;
+	}
 	if (cmdCpy.find("&&") != string::npos ||
 	    cmdCpy.find("||") != string::npos) { // Check for any connectors
 		cmdList.push_back(new MultiCmd(cmd)); // Create and pushback MultiCmd
@@ -32,7 +38,11 @@ void CmdComposite::parse(string cmdLine) {
 	// Set tokptr to beginning of first token
 	char* tokptr = strtok(cstr, ";"); // Tokens split by ; can be single or multi commands
 	while (tokptr != NULL) {
-		addCmd(tokptr);
+		try {
+			addCmd(tokptr);
+		} catch (const char* error_msg) {
+			cerr << error_msg << endl;
+		}
 		tokptr = strtok(NULL, ";"); // Continue scanning where prev successful call ended
 	}
 
