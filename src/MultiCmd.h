@@ -18,6 +18,7 @@
 #include <stddef.h>
 #include <queue>
 #include <vector>
+#include <stdexcept>
 
 using std::queue;
 using std::string;

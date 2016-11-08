@@ -21,10 +21,15 @@ bool MultiCmd::getCmdStatus() const{
 //------------------------------------
 
 void MultiCmd::parse() { // Splits the command string into string tokens
+
+//exceptions
+  int DOUBLE_CONNECTOR_EXCEPTION = 10;
+  char MISSING_SECOND_ARGUMENT = 'z';
+
   string cmdCpy(cmdString);
   char* cstr = new char[cmdCpy.length() + 1];
  
-  if(cmdString[0] == ' ') { // Removes space behind ; 
+  while(cmdString[0] == ' ') { // Removes space behind ; 
 	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
   }
   
@@ -52,31 +57,50 @@ void MultiCmd::parse() { // Splits the command string into string tokens
   while (cmdCpy.find(andDelimiter) != string::npos || cmdCpy.find(orDelimiter) != string::npos){
     char* cstr2 = new char[2];
     
-    if(cmdCpy[0] == ' ') { // Removes space behind ; 
+    while (cmdCpy[0] == ' ') { // Removes space behind ; 
 	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
     }
+    //pushes connector into the cmds vector
+    connector = cmdCpy.substr(0, 2);
+    cmdCpy = cmdCpy.substr(2, cmdCpy.size()-2);
+    strcpy(cstr2, connector.c_str());
+    cmds.push_back(cstr2);
     
-    if (index != cmdCpy.size()) {
-      connector = cmdCpy.substr(0, 2);
-      cmdCpy = cmdCpy.substr(2, cmdCpy.size()-2);
-      strcpy(cstr2, connector.c_str());
-      cmds.push_back(cstr2);
-    }
-    
-    if(cmdCpy[0] == ' ') { // Removes space behind ; 
+    while (cmdCpy[0] == ' ') { // Removes space behind ; 
 	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
     }
-    
+   
+try{    //checks to see if double connector or no second argument
     if (cmdCpy.find(andDelimiter) < cmdCpy.find(orDelimiter)) {//str::npos returns largest unsigned value
       index = cmdCpy.find(andDelimiter);
+      if (index == 0){
+	cout << "Found an and" << endl;
+	throw  DOUBLE_CONNECTOR_EXCEPTION;
+      }
     } 
     else if(cmdCpy.find(andDelimiter) > cmdCpy.find(orDelimiter)) {
       index = cmdCpy.find(orDelimiter);
+      if (index == 0){
+	cout << "Found an or" << endl;
+	throw DOUBLE_CONNECTOR_EXCEPTION;
+      }
     }
     else {
       index = cmdCpy.size();
+      if (index == 0){
+	throw MISSING_SECOND_ARGUMENT;
+      }
     }
-    
+}catch (int DOUBLE_CONNECTOR_EXCEPTION) {//throws to be caught in execute
+  throw DOUBLE_CONNECTOR_EXCEPTION;
+  break;
+}
+catch (char MISSING_SECOND_ARGUMENT) {//throws to be caught in exeute
+  throw MISSING_SECOND_ARGUMENT;
+  break;
+}
+
+   
     temp = cmdCpy.substr(0, index);
     char* cstr3 = new char[temp.size()];
     cmdCpy = cmdCpy.substr(index, cmdCpy.size()-index);
@@ -118,7 +142,16 @@ void MultiCmd::makeQueue() {
 }
 
 void MultiCmd::execute() {  
+try{  
   this->parse();
+} catch (int DOUBLE_CONNECTOR_EXCEPTION){
+     cout << "INVALID INPUT: TWO CONNONECTORS IN A ROW\n";
+     return;
+  }
+  catch (char MISSING_SECOND_ARGUMENT) {
+    cout << "INVALID INPUT: CONNECTORS NEED TWO ARGUMENTS\n";
+    return;
+  }
   this->makeQueue();
   
   Base* leftPtr; 
