@@ -134,11 +134,11 @@ void MultiCmd::execute() {
 try{  
   this->parse();
 } catch (int DOUBLE_CONNECTOR_EXCEPTION){
-     cout << "INVALID INPUT: TWO CONNONECTORS IN A ROW\n";
+     cerr << "INVALID INPUT: TWO CONNONECTORS IN A ROW\n";
      return;
   }
   catch (char MISSING_SECOND_ARGUMENT) {
-    cout << "INVALID INPUT: CONNECTORS NEED TWO ARGUMENTS\n";
+    cerr << "INVALID INPUT: CONNECTORS NEED TWO ARGUMENTS\n";
     return;
   }
   this->makeQueue();
