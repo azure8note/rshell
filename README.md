@@ -5,7 +5,3 @@ This repository has made a small command shell that emulates the commandline of 
 
 # Known Bugs
 1) Inputing a invalid command breaks our shell, so you will have to close the client manually.
-
-2) Inputing two connectors one after another will not work and will break the client.
-
-3) This specific combination of commands will not work "cat && date && ls" They work alone and in pairs, but unfortunatly, all three in this order will break the shell.
