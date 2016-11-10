@@ -20,6 +20,17 @@ bool MultiCmd::getCmdStatus() const{
 
 //------------------------------------
 
+void MultiCmd::ParParse() {
+  
+}
+
+
+//----------------------------------------
+
+
+
+
+
 void MultiCmd::parse() { // Splits the command string into string tokens
 
 //exceptions

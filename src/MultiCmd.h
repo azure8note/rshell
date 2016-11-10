@@ -51,6 +51,7 @@ public:
 	
 	void makeQueue();// makes queue to be used for execute
 	void parse(); // used for execute to split the cmdstring into cmds and connectors
+	void ParParse(); //used to parse command strings with parenthesis
 	
 
 	//The main function used by the composite pattern
