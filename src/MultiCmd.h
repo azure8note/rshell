@@ -31,6 +31,7 @@ class MultiCmd: public Base {
 private:
 	char* cmdString; // string of multi commands
 	bool cmdStatus;  // used for checking connector cases
+	bool parStatus; //bool to check if the multiCmd has a parenthesis
 	queue<Base*> cmdQueue; // used for the output
 	vector<char*> cmds; // holds the commands after being parsed
 public:
@@ -41,6 +42,11 @@ public:
 	MultiCmd(char* str) : Base() {
 	  cmdString = str;
 	}
+	MultiCmd(char* str, bool hasPar) : Base() {
+	  cmdString = str;
+	  parStatus = hasPar;
+	}
+	  
 	
 	//Accessors and Mutators
 	void setCmd(char* str);
