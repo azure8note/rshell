@@ -1,6 +1,7 @@
 #include "CmdComposite.h"
 #include "SingleCmd.h"
 #include "MultiCmd.h"
+#include "ParCmd.h"
 
 using std::cerr;
 
@@ -14,9 +15,15 @@ void CmdComposite::addCmd(char* cmd) {
 		throw "INVALID INPUT: CANNOT BEGIN COMMAND WITH CONNECTOR";
 	}
 	if (cmdCpy.find("&&") != string::npos ||
-	    cmdCpy.find("||") != string::npos) { // Check for any connectors
+	    cmdCpy.find("||") != string::npos) { // Check for && or || connectors
+		if (cmdCpy.find("(") != string::npos) {
+			if (cmdCpy.find(")") == string::npos) { // If no closing parentheses is found, throw Invalid 
+				throw "INVALID INPUT: NO CLOSING PARENTHESES";
+			}
+			cmdList.push_back(new MultiCmd(cmd, true));
+		}
 		cmdList.push_back(new MultiCmd(cmd)); // Create and pushback MultiCmd
-	} else { // No &&, || connectors
+	} else { // No && or || connectors in string
 		cmdList.push_back(new SingleCmd(cmd)); // Create and pushback SingleCmd
 	}
 
