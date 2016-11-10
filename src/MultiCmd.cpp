@@ -144,32 +144,32 @@ try{
   this->makeQueue();
   
   Base* leftPtr; 
-  Base* midPtr;
+  Base* midPtr; // Takes leftPtr and rightPtr as its left & right children
   Base* rightPtr;
   Base* dum = new SingleCmd(); // Creates a dummy SingleCmd to hold the cmdStatus of prev executed commands
   
-  leftPtr = cmdQueue.front(); // Assigns first element of queue to left ptr
+  leftPtr = cmdQueue.front(); // Assigns first element of queue to leftPtr
   cmdQueue.pop();
-  midPtr = cmdQueue.front(); // Assigns second element of queue to mid ptr // should be connector
+  midPtr = cmdQueue.front(); // Assigns second element (should be a connector) of queue to midPtr 
   cmdQueue.pop();
-  rightPtr = cmdQueue.front(); // Assigns third element of queue to right ptr 
+  rightPtr = cmdQueue.front(); // Assigns third element of queue to rightPtr
   cmdQueue.pop();
   
-  midPtr->setLeftCmd(leftPtr); // sets left command of mid
-  midPtr->setRightCmd(rightPtr); // sets right command of mid
+  midPtr->setLeftCmd(leftPtr); // Sets left command of mid
+  midPtr->setRightCmd(rightPtr); // Sets right command of mid
   
   midPtr->execute(); 
   
   while (!cmdQueue.empty()){
-    dum->setCmdStatus(midPtr->getCmdStatus()); // sets dummy's status to the last midpointers status
+    dum->setCmdStatus(midPtr->getCmdStatus()); // Sets the SingleCmd dummy's status to the last midpointers status
    
-    midPtr = cmdQueue.front(); // sets new mid pointer
+    midPtr = cmdQueue.front(); // Sets new mid pointer
     cmdQueue.pop();
-    rightPtr = cmdQueue.front(); // sets new right pointer
+    rightPtr = cmdQueue.front(); // Sets new right pointer
     cmdQueue.pop();
     
-    midPtr->setLeftCmd(dum); // sets new mid left to dummy
-    midPtr->setRightCmd(rightPtr); // set new mid right to new right
+    midPtr->setLeftCmd(dum); // Sets new mid left to dummy
+    midPtr->setRightCmd(rightPtr); // Set new mid right to new right
     
     if (midPtr == NULL || rightPtr == NULL){ // checks if the elemnt is null
       return;
