@@ -11,17 +11,30 @@ void CmdComposite::clearCmds() {
 
 void CmdComposite::addCmd(char* cmd) {
 	string cmdCpy(cmd); // Create string of cmd
+	
 	if (cmdCpy.find("&&") == 0 || cmdCpy.find("||") == 0) {
 		throw "INVALID INPUT: CANNOT BEGIN COMMAND WITH CONNECTOR";
 	}
-	if (cmdCpy.find("&&") != string::npos ||
-	    cmdCpy.find("||") != string::npos) { // Check for && or || connectors
-		if (cmdCpy.find("(") != string::npos) {
-			if (cmdCpy.find(")") == string::npos) { // If no closing parentheses is found, throw Invalid 
-				throw "INVALID INPUT: NO CLOSING PARENTHESES";
+	
+	if (cmdCpy.find("&&") != string::npos || cmdCpy.find("||") != string::npos) { // Check for && or || connectors
+		int numOpen = 0;
+		int numClose = 0;
+
+		for (int i = 0; i < cmdCpy.size(); ++i) {
+			if (cmdCpy.find("(") != string::npos) {
+				++numOpen;
 			}
+			if (cmdCpy.find(")") != string::npos) { // If no closing parentheses is found, throw Invalid 
+				++numClose;			
+			}
+		}
+
+		if (numOpen != numClose) {
+			throw "INVALID INPUT: NO CLOSING PARENTHESES";
+		} else if (numOpen) {
 			cmdList.push_back(new MultiCmd(cmd, true));
 		}
+
 		cmdList.push_back(new MultiCmd(cmd)); // Create and pushback MultiCmd
 	} else { // No && or || connectors in string
 		cmdList.push_back(new SingleCmd(cmd)); // Create and pushback SingleCmd
