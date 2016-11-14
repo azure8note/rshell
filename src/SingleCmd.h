@@ -2,19 +2,19 @@
 #define SINGLECMD_H
 #include "Base.h"
 
-#include <stddef.h>
-#include <iostream>
 #include <cstring>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <stdlib.h>
+#include <iostream>
 #include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
-using std::string;
 using std::cout;
 using std::endl;
+using std::string;
 
 class SingleCmd: public Base {
 
