@@ -20,7 +20,7 @@ void CmdComposite::addCmd(char* cmd) {
 		int numOpen = 0;
 		int numClose = 0;
 
-		for (int i = 0; i < cmdCpy.size(); ++i) {
+		for (unsigned int i = 0; i < cmdCpy.size(); ++i) {
 			if (cmdCpy.find("(") != string::npos) {
 				++numOpen;
 			}
