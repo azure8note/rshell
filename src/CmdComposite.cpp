@@ -16,12 +16,22 @@ void CmdComposite::addCmd(char* cmd) {
 	}
 	if (cmdCpy.find("&&") != string::npos ||
 	    cmdCpy.find("||") != string::npos) { // Check for && or || connectors
-		if (cmdCpy.find("(") != string::npos) {
-			if (cmdCpy.find(")") == string::npos) { // If no closing parentheses is found, throw Invalid 
-				throw "INVALID INPUT: NO CLOSING PARENTHESES";
+		int numOpen = 0; // Number of opening parentheses
+		int numClose = 0; // Number of closing parentheses
+		for (int i = 0; i < cmdCpy.size(); ++i) {	
+			if (cmdCpy.find("(") != string::npos) {
+				++numOpen;
 			}
+			if (cmdCpy.find(")") != string::npos) {
+				++numClose;
+			}
+		}		
+		if (numOpen != numClose) { // If no closing parentheses is found, throw Invalid 
+			throw "INVALID INPUT: NO CLOSING PARENTHESES";
+		} else if (numOpen) {
 			cmdList.push_back(new MultiCmd(cmd, true));
 		}
+		
 		cmdList.push_back(new MultiCmd(cmd)); // Create and pushback MultiCmd
 	} else { // No && or || connectors in string
 		cmdList.push_back(new SingleCmd(cmd)); // Create and pushback SingleCmd
