@@ -1,7 +1,6 @@
 #include "CmdComposite.h"
 #include "SingleCmd.h"
 #include "MultiCmd.h"
-#include "ParCmd.h"
 
 using std::cerr;
 
@@ -31,8 +30,6 @@ void CmdComposite::addCmd(char* cmd) {
 
 		if (numOpen != numClose) {
 			throw "INVALID INPUT: NO CLOSING PARENTHESES";
-		} else if (numOpen) {
-			cmdList.push_back(new MultiCmd(cmd, true));
 		}
 
 		cmdList.push_back(new MultiCmd(cmd)); // Create and pushback MultiCmd
