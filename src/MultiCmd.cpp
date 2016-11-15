@@ -18,18 +18,7 @@ bool MultiCmd::getCmdStatus() const{
 	return cmdStatus;
 }
 
-//------------------------------------
-
-void MultiCmd::ParParse() {
-  
-}
-
-
 //----------------------------------------
-
-
-
-
 
 void MultiCmd::parse() { // Splits the command string into string tokens
 
@@ -50,6 +39,7 @@ void MultiCmd::parse() { // Splits the command string into string tokens
   string orDelimiter = "||";
   
   unsigned index = 0;
+  
   string temp;
   string connector;
   
@@ -58,7 +48,27 @@ void MultiCmd::parse() { // Splits the command string into string tokens
     } else {
       index = cmdCpy.find(orDelimiter);
     }
+//---------------------   
+    int openCounter = 0;
+    int closeCounter = 0;
     
+    //maybe only need to check the first char since that how it statrts
+    if (cmdCpy.at(0) == '('){
+       unsigned i = 0;
+       openCounter++; // found a parenthesis 
+       while (openCounter > closeCounter){ //looks for the last closing parethesis for this part
+          i++;
+          if (cmdCpy.at(i) == '('){
+	     openCounter++;
+	  }
+	  if (cmdCpy.at(i) == ')'){
+             closeCounter++;
+	  }
+      }
+      //index is now pointing to the location of the last parenthesis
+      index = i+1;
+    }
+//------------------------	      
     temp = cmdCpy.substr(0, index);
     cmdCpy = cmdCpy.substr(index, cmdCpy.size()-index);
     strcpy(cstr, temp.c_str());
@@ -108,9 +118,25 @@ catch (char MISSING_SECOND_ARGUMENT) {//throws to be caught in exeute
   throw MISSING_SECOND_ARGUMENT;
   break;
 }
-
-   
-    temp = cmdCpy.substr(0, index);
+//for parenthsesis
+    openCounter = 0;
+    closeCounter = 0;
+    if (cmdCpy.at(0) == '('){
+      unsigned i = 0;
+      openCounter++; // found a parenthesis 
+      while (openCounter > closeCounter){ //looks for the last closing parethesis for this part
+         i++;
+	 if (cmdCpy.at(i) == '('){
+	     openCounter++;
+	 }
+	 if (cmdCpy.at(i) == ')'){
+	     closeCounter++;
+	 }
+       }
+       index = i+1; //index is now pointing to the location of the last parenthesis
+    }
+//-------------------------
+    temp = cmdCpy.substr(0, index);  
     char* cstr3 = new char[temp.size()];
     cmdCpy = cmdCpy.substr(index, cmdCpy.size()-index);
     strcpy(cstr3, temp.c_str());
@@ -121,24 +147,44 @@ catch (char MISSING_SECOND_ARGUMENT) {//throws to be caught in exeute
 void MultiCmd::makeQueue() {
   
   Base* temp = 0;
-  
+
   /* Iterates the vector of commands, instantiating
      the correct corresponding object */
   for(unsigned i = 0; i < cmds.size(); i++){
-     if ((cmds.at(i))[0] == '&'){ // Checks if cmd is an && connector
-       temp = new And(); // Creates And object and pushes it into queue
-       cmdQueue.push(temp);
- 
-     }
-     else if ((cmds.at(i))[0] == '|'){ // Creates Or object and pushes it into queue
-       temp = new Or();
-       cmdQueue.push(temp);
-     }
-     else { // Not && or || connector
-       temp = new SingleCmd(cmds.at(i)); // Creates SingleCmd and pushes it into queue
-       cmdQueue.push(temp);
-     }
-  }
+      //checks if the the string has parenthesis
+      bool has_Par = false;
+      for (unsigned j = 0;(cmds.at(i))[j] != '\0'; j++) {//since we removed first '(' we have to loop through it
+	  if ((cmds.at(i))[j] == '(' || (cmds.at(i))[j] == ')' ){
+	     has_Par = true;
+	     break;
+	  }
+      }	
+      
+      if (has_Par){ //if it has a parenthesis
+	string cmdCpy(cmds.at(i));
+	string tempStr;
+	char* cstr = new char[cmdCpy.length() + 1];
+	
+	tempStr = cmdCpy.substr(1, cmdCpy.length()-2); //removes first and last parenthesis
+	strcpy(cstr, tempStr.c_str());
+	
+	temp = new MultiCmd(cstr);
+	cmdQueue.push(temp);
+      }
+      
+      else if ((cmds.at(i))[0] == '&'){ // Checks if cmd is an && connector
+        temp = new And(); // Creates And object and pushes it into queue
+        cmdQueue.push(temp);
+      }
+      else if ((cmds.at(i))[0] == '|'){ // Creates Or object and pushes it into queue
+        temp = new Or();
+        cmdQueue.push(temp);
+      }
+      else { // Not && or || connector
+        temp = new SingleCmd(cmds.at(i)); // Creates SingleCmd and pushes it into queue
+        cmdQueue.push(temp);
+      }
+   }
 }
 
 void MultiCmd::execute() {  
