@@ -232,6 +232,7 @@ try{
       return;
     }
     midPtr->execute();
+    this->cmdStatus = midPtr->getRightCmd()->getCmdStatus();
   }
 }
   
