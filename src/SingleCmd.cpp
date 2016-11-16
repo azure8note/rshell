@@ -1,3 +1,4 @@
+
 #include "SingleCmd.h"
 //setters and getters --------------
 void SingleCmd::setCmd(char* str){
@@ -60,6 +61,7 @@ void SingleCmd::execute() {
   
 	if (pid < 0) { /*fork a child process*/
 	   	 perror("fork");// didn't fork properly
+		 
 	} 
 	else if(pid == 0){ //child processs
 	  	if (execvp(args[0], args) < 0){// calls execute
