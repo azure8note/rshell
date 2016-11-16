@@ -27,11 +27,11 @@ public:
 	//CONSTRUCTORS
 	SingleCmd() : Base() {
 	  cmd = '\0';
-	  cmdStatus = false;
+	  cmdStatus = true;
 	};
 	SingleCmd(char* str) : Base() {
 	  cmd = str;
-	  cmdStatus = false;
+	  cmdStatus = true;
 	};
 
 	//Accessors and Mutators
