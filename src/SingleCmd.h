@@ -43,6 +43,7 @@ public:
 	//The main function used by the composite pattern
 	void parse();//used by the execute to remove spaces
 	void execute();
+	void executeTest();
 };
 
 #endif

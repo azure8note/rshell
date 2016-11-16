@@ -151,7 +151,7 @@ void MultiCmd::makeQueue() {
   /* Iterates the vector of commands, instantiating
      the correct corresponding object */
   for(unsigned i = 0; i < cmds.size(); i++){
-      //checks if the the string has parenthesis
+      //checks if the the string has parentheses
       bool has_Par = false;
       for (unsigned j = 0;(cmds.at(i))[j] != '\0'; j++) {//since we removed first '(' we have to loop through it
 	  if ((cmds.at(i))[j] == '(' || (cmds.at(i))[j] == ')' ){
@@ -160,12 +160,12 @@ void MultiCmd::makeQueue() {
 	  }
       }	
       
-      if (has_Par){ //if it has a parenthesis
+      if (has_Par){ // If it has parentheses
 	string cmdCpy(cmds.at(i));
 	string tempStr;
 	char* cstr = new char[cmdCpy.length() + 1];
 	
-	tempStr = cmdCpy.substr(1, cmdCpy.length()-2); //removes first and last parenthesis
+	tempStr = cmdCpy.substr(1, cmdCpy.length()-2); // Removes first and last parentheses
 	strcpy(cstr, tempStr.c_str());
 	
 	temp = new MultiCmd(cstr);
@@ -236,4 +236,4 @@ try{
     this->cmdStatus = midPtr->getCmdStatus();
   }
 }
-  
+
