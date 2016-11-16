@@ -37,9 +37,11 @@ public:
 	//CONSTRUCTORS
 	MultiCmd() : Base() {
 	  *cmdString = '\0';
+	   cmdStatus = false;
 	};
 	MultiCmd(char* str) : Base() {
 	  cmdString = str;
+	  cmdStatus = false;
 	}
 	  	
 	//Accessors and Mutators
