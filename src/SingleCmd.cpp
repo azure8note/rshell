@@ -57,7 +57,7 @@ void SingleCmd::execute() {
 	
             string firstTok(args[1]);
 	
-            if (firstTok.at(0) != "-") {
+            if (firstTok.at(0) != '-') {
 	        if (stat(args[1], &sb) == -1) {
         	    perror("stat");
 		    // exit(EXIT_FAILURE);
@@ -75,13 +75,13 @@ void SingleCmd::execute() {
 	        // exit(EXIT_FAILURE);
 	    }
 
-	    if (firstTok.at(1) == "e") {
+	    if (firstTok.at(1) == 'e') {
 	        if (access(args[2], F_OK) == 0) {
 		   cout << "(True)\n";
 	        } else {
 		   cout << "(False)\n";
 	        }	
-	    } else if (firstTok.at(1) == "f") {
+	    } else if (firstTok.at(1) == 'f') {
 	        if (S_ISREG (sb.st_mode)) {
 		    cout << "(True)\n";
 	        } else {
