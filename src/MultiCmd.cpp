@@ -215,7 +215,8 @@ try{
   midPtr->setLeftCmd(leftPtr); // Sets left command of mid
   midPtr->setRightCmd(rightPtr); // Sets right command of mid
   
-  midPtr->execute(); 
+  midPtr->execute();
+  this->cmdStatus = midPtr->getCmdStatus();
   
   while (!cmdQueue.empty()){
     dum->setCmdStatus(midPtr->getCmdStatus()); // Sets the SingleCmd dummy's status to the last midpointers status
@@ -232,7 +233,7 @@ try{
       return;
     }
     midPtr->execute();
-    this->cmdStatus = midPtr->getRightCmd()->getCmdStatus();
+    this->cmdStatus = midPtr->getCmdStatus();
   }
 }
 

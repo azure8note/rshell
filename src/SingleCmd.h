@@ -27,7 +27,7 @@ public:
 	//CONSTRUCTORS
 	SingleCmd() : Base() {
 	  cmd = '\0';
-	  cmdStatus = true;
+	  cmdStatus = true; // needs to be set true since once execvp executes we cant change the status of it
 	};
 	SingleCmd(char* str) : Base() {
 	  cmd = str;
