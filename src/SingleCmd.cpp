@@ -1,4 +1,8 @@
 #include "SingleCmd.h"
+
+using std::cerr;
+using std::endl;
+
 //setters and getters --------------
 void SingleCmd::setCmd(char* str){
 	cmd = str;
@@ -42,10 +46,48 @@ void SingleCmd::execute() {
     this->parse(); // Further parses cmd into the actual command and any flags it has
 
     string argsCpy(args[0]);
-
-    if (argsCpy == "test") {
-	if (args[1]
+    struct stat sb;
     
+    try {
+        if (argsCpy == "test" || argsCpy == "[") {
+	    if (argsCpy == "[" && (*(args[2]) != ']' || *(args[3]) != ']')) {
+	         throw "IVALID INPUT: [ WITH NO CLOSING ]";
+	    }
+	
+            char firstTok[] = {*(args[1])};
+	
+            if (firstTok[0] != '-') {
+	         if (access(firstTok, F_OK) == 0) {
+		    cout << "(True)\n";
+	         } else {
+		    cout << "(False)\n";
+	         }	
+	    } else if (firstTok[1] == 'e') {
+	         if (access(firstTok, F_OK) == 0) {
+		    cout << "(True)\n";
+	         } else {
+		    cout << "(False)\n";
+	         }	
+	    } else if (firstTok[1] == 'f') {
+	        if (S_ISREG (sb.st_mode)) {
+		    cout << "(True)\n";
+	        } else {
+		    cout << "(False)\n";
+	        }
+	    } else {
+	        if (S_ISDIR (sb.st_mode)) {
+		    cout << "(True)\n";
+	        } else {
+		    cout << "(False)\n";
+	        }
+	    }   
+            return;
+	}	
+    } catch (const char* err_msg) {
+	cerr << err_msg << endl;
+	return;
+    }
+ 
     string lowExit = "exit";
     string capExit = "EXIT";
  
