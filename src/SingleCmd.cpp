@@ -47,7 +47,7 @@ void SingleCmd::execute() {
 
     string argsCpy(args[0]);
     struct stat sb;
-    
+        
     try {
         if (argsCpy == "test" || argsCpy == "[") {
 	    if (argsCpy == "[" && (*(args[2]) != ']' || *(args[3]) != ']')) {
