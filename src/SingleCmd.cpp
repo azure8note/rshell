@@ -55,14 +55,14 @@ void SingleCmd::execute() {
 	         throw "IVALID INPUT: [ WITH NO CLOSING ]";
 	    }
 	
-            char firstTok[] = {*(args[1])};
+            string firstTok(args[1]);
 	
-            if (firstTok[0] != '-') {
+            if (firstTok.at(0) != "-") {
 	        if (stat(args[1], &sb) == -1) {
         	    perror("stat");
 		    // exit(EXIT_FAILURE);
 		}
-	        if (access(firstTok, F_OK) == 0) {
+	        if (access(args[1], F_OK) == 0) {
 		   cout << "(True)\n";
 	        } else {
 		   cout << "(False)\n";
@@ -75,13 +75,13 @@ void SingleCmd::execute() {
 	        // exit(EXIT_FAILURE);
 	    }
 
-	    if (firstTok[1] == 'e') {
-	        if (access(firstTok, F_OK) == 0) {
+	    if (firstTok.at(1) == "e") {
+	        if (access(args[2], F_OK) == 0) {
 		   cout << "(True)\n";
 	        } else {
 		   cout << "(False)\n";
 	        }	
-	    } else if (firstTok[1] == 'f') {
+	    } else if (firstTok.at(1) == "f") {
 	        if (S_ISREG (sb.st_mode)) {
 		    cout << "(True)\n";
 	        } else {
