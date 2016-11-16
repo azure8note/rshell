@@ -40,8 +40,11 @@ void SingleCmd::parse() { // Seperates the command from its flag into two sepera
 
 void SingleCmd::execute() {
     this->parse(); // Further parses cmd into the actual command and any flags it has
-    
+
     string argsCpy(args[0]);
+
+    if (argsCpy == "test") {
+	if (args[1]
     
     string lowExit = "exit";
     string capExit = "EXIT";
