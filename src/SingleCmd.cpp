@@ -58,17 +58,29 @@ void SingleCmd::execute() {
             char firstTok[] = {*(args[1])};
 	
             if (firstTok[0] != '-') {
-	         if (access(firstTok, F_OK) == 0) {
-		    cout << "(True)\n";
-	         } else {
-		    cout << "(False)\n";
-	         }	
-	    } else if (firstTok[1] == 'e') {
-	         if (access(firstTok, F_OK) == 0) {
-		    cout << "(True)\n";
-	         } else {
-		    cout << "(False)\n";
-	         }	
+	        if (stat(args[1], &sb) == -1) {
+        	    perror("stat");
+		    // exit(EXIT_FAILURE);
+		}
+	        if (access(firstTok, F_OK) == 0) {
+		   cout << "(True)\n";
+	        } else {
+		   cout << "(False)\n";
+	        }
+		return;	
+	    }
+	    
+	    if (stat(args[2], &sb) == -1) {
+        	perror("stat");
+	        // exit(EXIT_FAILURE);
+	    }
+
+	    if (firstTok[1] == 'e') {
+	        if (access(firstTok, F_OK) == 0) {
+		   cout << "(True)\n";
+	        } else {
+		   cout << "(False)\n";
+	        }	
 	    } else if (firstTok[1] == 'f') {
 	        if (S_ISREG (sb.st_mode)) {
 		    cout << "(True)\n";
