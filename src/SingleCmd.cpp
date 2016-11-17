@@ -50,55 +50,63 @@ void SingleCmd::execute() {
     struct stat sb;
         
     try {
-        if (argsCpy == "test" || argsCpy == "[") {
-	    if (argsCpy == "[" && (*(args[2]) != ']' || *(args[3]) != ']')) {
-	         throw "IVALID INPUT: [ WITH NO CLOSING ]";
-	    }
+        if (argsCpy == "test" || argsCpy == "[") { // Looks for test command
+            string firstTok(args[1]); 
 	
-            string firstTok(args[1]);
-	
-            if (firstTok.at(0) != '-') {
-	        if (stat(args[1], &sb) == -1) {
-        	    perror("stat");
+	    
+	    if (firstTok.at(0) != '-') { // Checks if a flag is provided with the test command
+	        if (argsCpy == "[" && *(args[2]) != ']') { // Closing bracket is at args[2] when there is no flag
+		    throw "INVALID INPUT: [ WITH NO CLOSING ]";
+		}
+		if (stat(args[1], &sb) == -1) { // Path given in index 1 when no flag is provided
+        	    perror("stat"); 		// Error check
 		    // exit(EXIT_FAILURE);
 		}
-	        if (access(args[1], F_OK) == 0) {
-		   cout << "(True)" << endl;
+	        if (access(args[1], F_OK) == 0) { // Check if the file exists at given path
+		    cout << "(True)" << endl;
 	        } else {
-		   cout << "(False)" << endl;
+		    cout << "(False)" << endl;	
+		    setCmdStatus(false); // Set cmdStatus to false
 	        }
 		return;	
 	    }
 	    
-	    if (stat(args[2], &sb) == -1) {
+	    if (argsCpy == "[" && *(args[3]) != ']') { // Case with flag provided: ] index at 3
+		throw "INVALID INPUT: [ WITH NO CLOSING ]";
+	    }
+
+	    if (stat(args[2], &sb) == -1) { // Initialize stat with path given at index 2
         	perror("stat");
 	        // exit(EXIT_FAILURE);
 	    }
 
-	    if (firstTok.at(1) == 'e') {
-	        if (access(args[2], F_OK) == 0) {
-		   cout << "(True)" << endl;
-	        } else {
-		   cout << "(False)" << endl;
+	    if (firstTok.at(1) == 'e') { // Check for -e flag
+	        if (access(args[2], F_OK) == 0) { // If the file exists, print (True)
+		    cout << "(True)" << endl;
+	        } else { // File does not exist
+		    cout << "(False)" << endl; 
+		    setCmdStatus(false); // Set cmdStatus to false
 	        }	
-	    } else if (firstTok.at(1) == 'f') {
-	        if (S_ISREG (sb.st_mode)) {
+	    } else if (firstTok.at(1) == 'f') { // Check for -f flag
+	        if (S_ISREG (sb.st_mode)) { // Check if it is a regular file
 		    cout << "(True)" << endl;
 	        } else {
 		    cout << "(False)" << endl;
+		    setCmdStatus(false);
 	        }
-	    } else {
-	        if (S_ISDIR (sb.st_mode)) {
+	    } else { // -d flag
+	        if (S_ISDIR (sb.st_mode)) { // Check if it is a directory
 		    cout << "(True)" << endl;
 	        } else {
 		    cout << "(False)" << endl;
+		    setCmdStatus(false);
 	        }
 	    }   
             return;
 	}	
-    } catch (const char* err_msg) {
-	cerr << err_msg << endl;
-	return;
+    } catch (const char* err_msg) { // Catch INVALID INPUT error
+	cerr << err_msg << endl; // Prints to console error message
+	return; // Ends call to execute
     }
  
     string lowExit = "exit";
