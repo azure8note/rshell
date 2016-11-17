@@ -1,4 +1,3 @@
-
 #include "SingleCmd.h"
 
 using std::cerr;
@@ -123,22 +122,23 @@ void SingleCmd::execute() {
   
 	if (pid < 0) { /*fork a child process*/
 	   	 perror("fork");// didn't fork properly
-		 
 	} 
 	else if(pid == 0){ //child processs
 	  	if (execvp(args[0], args) < 0){// calls execute
 			setCmdStatus(false);//in case it fails changes the status (for multi comand
-			perror ("exec"); //error checks
+			perror ("exec"); //error check
 	  	}	
 	}
 	else {//parent
-  		pid_t wpid; // waits for child to finish
+		pid_t wpid; // waits for child to finish
 	  	
 		wpid = waitpid(pid, &status, WUNTRACED);
-	  	
-	while (wpid <= -1){
-	    perror("wait");
-	    wpid = waitpid(pid, &status, WUNTRACED);
+		if (status > 0){
+		  setCmdStatus(false);
+		}
+		while (wpid <= -1){
+		    perror("wait");
+		    wpid = waitpid(pid, &status, WUNTRACED);
 	} 
     }
 }
