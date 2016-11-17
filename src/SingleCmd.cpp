@@ -63,9 +63,9 @@ void SingleCmd::execute() {
 		    // exit(EXIT_FAILURE);
 		}
 	        if (access(args[1], F_OK) == 0) {
-		   cout << "(True)\n";
+		   cout << "(True)" << endl;
 	        } else {
-		   cout << "(False)\n";
+		   cout << "(False)" << endl;
 	        }
 		return;	
 	    }
@@ -77,21 +77,21 @@ void SingleCmd::execute() {
 
 	    if (firstTok.at(1) == 'e') {
 	        if (access(args[2], F_OK) == 0) {
-		   cout << "(True)\n";
+		   cout << "(True)" << endl;
 	        } else {
-		   cout << "(False)\n";
+		   cout << "(False)" << endl;
 	        }	
 	    } else if (firstTok.at(1) == 'f') {
 	        if (S_ISREG (sb.st_mode)) {
-		    cout << "(True)\n";
+		    cout << "(True)" << endl;
 	        } else {
-		    cout << "(False)\n";
+		    cout << "(False)" << endl;
 	        }
 	    } else {
 	        if (S_ISDIR (sb.st_mode)) {
-		    cout << "(True)\n";
+		    cout << "(True)" << endl;
 	        } else {
-		    cout << "(False)\n";
+		    cout << "(False)" << endl;
 	        }
 	    }   
             return;
