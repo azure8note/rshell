@@ -3,4 +3,5 @@
 ((echo A && echo B) || echo C) || (echo D && echo E)
 ((echo A && (echo B || echo C) && echo D) && (echo E || echo F))
 echo A && (echo B || echo C) || echo D
+(((((((((((((date && hostname)))))))))))))
 exit
