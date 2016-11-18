@@ -24,4 +24,6 @@ echo "test after connector"  && test -f ../makefile
 (test -d ../bin || echo "[test OR should not print]") && (echo "[test true OR echo] AND [echo OR test true]" || test -f ../makefile)
 [ -e ../src/MultiCmd.cpp
 [ -e ../src ] && echo "prev. error did not break shell"
+test -f
+[ -d ]
 exit
