@@ -33,8 +33,6 @@ void MultiCmd::parse() { // Splits the command string into string tokens
 	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
   }
   
-  //strcpy(cstr, cmdCpy.c_str()); // Creates mutable c-string copy of cmdCpy
-  
   string andDelimiter = "&&";
   string orDelimiter = "||";
   
@@ -79,7 +77,7 @@ void MultiCmd::parse() { // Splits the command string into string tokens
 	  }
       } 
       else {
-	  break;
+	  break;//so we exit the loop since there will always be one set of parenthesis in the multicmd
       }
     }
 //------------------------	      
