@@ -1,5 +1,5 @@
-#!/bin/bash
+#!/bin/sh
 
-echo "Testing Test Commands...\n"
+echo "Testing Test Commands..."
 
 ../bin/rshell < test_test.txt
