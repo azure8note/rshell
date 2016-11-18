@@ -1,26 +1,27 @@
-test -e makefile
-test -f makefile
-test -d src
-test tests/exit.sh
+test -e ../makefile
+test -f ../makefile
+test -d ../src
+test exit.sh
 test nonexistant
 test -e hello
-test -f src
-test -d makefile
-[ -e src/And.cpp ]
-[ -f src/MultiCmd.h ]
-[ -d bin ]
-[ src/SingleCmd.cpp ]
-[ Makefile ]
-[ -e bin/bye ]
-[ -f tests ]
-[ -d tests/commented_command.txt ]
-test -f tests/exit.txt && echo "exit.txt is a file"
-test -d src/Or.h && echo "false AND this should not print"
-test -e bin || echo "true OR this should not print"
+test -f ../src
+test -d ../makefile
+[ -e ../src/And.cpp ]
+[ -f ../src/MultiCmd.h ]
+[ -d ../bin ]
+[ ../src/SingleCmd.cpp ]
+[ ../Makefile ]
+[ -e ../bin/bye ]
+[ -f ../bin ]
+[ -d commented_command.txt ]
+test -f exit.txt && echo "exit.txt is a file"
+test -d ../src/Or.h && echo "false AND this should not print"
+test -e ../bin || echo "true OR this should not print"
 test isFalse || echo "false OR isFalse does not exist"
-(test src/CmdComposite.cpp && echo "CmdComposite.cpp exists") || (test src && echo "(test AND echo) AND this should not print")
-([ totesFalse ] && echo "totesFalse AND should not print") || ([ -f src/And.h ] && echo "(test false AND echo) OR this should print")
-(test -d bin || echo "(test OR should not print)") && (echo "(test true OR echo) AND (echo OR test true)" || test -f makefile)
-[ -e src/MultiCmd.cpp
-[ -e src ] && echo "prev. error did not break shell"
+echo "test after connector"  && test -f ../makefile
+(test ../src/CmdComposite.cpp && echo "CmdComposite.cpp exists") || (test ../src && echo "(test AND echo) AND this should not print")
+([ totesFalse ] && echo "totesFalse AND should not print") || ([ -f ../src/And.h ] && echo "(test false AND echo) OR this should print")
+(test -d ../bin || echo "(test OR should not print)") && (echo "(test true OR echo) AND (echo OR test true)" || test -f ../makefile)
+[ -e ../src/MultiCmd.cpp
+[ -e ../src ] && echo "prev. error did not break shell"
 exit
