@@ -29,7 +29,7 @@ void SingleCmd::parse() { // Seperates the command from its flag into two sepera
 	string cmdCpy(cmd);
 	    
 	while (cmdCpy.at(0) == ' '){ //removes parenthesis around single commands
-	  cmdCpy = cmdCpy.substr(1, cmdCpy.size());
+	  cmdCpy = cmdCpy.substr(1, cmdCpy.size()-1);
 	}
 	
 	char* cstr = new char[cmdCpy.length()+1];
@@ -41,7 +41,7 @@ void SingleCmd::parse() { // Seperates the command from its flag into two sepera
       	string cmdCpy(cmd);
 	    
 	while (cmdCpy.at(0) == '('){ //removes parenthesis around single commands
-	  cmdCpy = cmdCpy.substr(1, cmdCpy.size()-1);
+	  cmdCpy = cmdCpy.substr(1, cmdCpy.size()-2);
 	}
 	
 	char* cstr = new char[cmdCpy.length()+1];
