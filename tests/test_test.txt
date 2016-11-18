@@ -23,4 +23,4 @@ test isFalse || echo "false || isFalse does not exist"
 (test -d bin || echo "(test || should not print)") && (echo "(test true || echo) && (echo || test true)" || test -f makefile)
 [ -e src/MultiCmd.cpp
 [ -e src ] && echo "prev. error did not break shell"
-
+exit
