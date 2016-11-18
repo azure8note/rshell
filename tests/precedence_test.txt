@@ -1,3 +1,5 @@
+()
+(echo A) && ()
 (echo A 
 ((((echo A))))
 (echo A && echo B)
