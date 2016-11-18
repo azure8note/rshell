@@ -1,0 +1,26 @@
+test -e makefile
+test -f makefile
+test -d src
+test tests/exit.sh
+test nonexistant
+test -e hello
+test -f src
+test -d makefile
+[ -e src/And.cpp ]
+[ -f src/MultiCmd.h ]
+[ -d bin ]
+[ src/SingleCmd.cpp ]
+[ Makefile ]
+[ -e bin/bye ]
+[ -f tests ]
+[ -d tests/commented_command.txt ]
+test -f tests/exit.txt && echo "exit.txt is a file"
+test -d src/Or.h && echo "false && this should not print"
+test -e bin || echo "true || this should not print"
+test isFalse || echo "false || isFalse does not exist"
+(test src/CmdComposite.cpp && echo "CmdComposite.cpp exists") || (test src && echo "(test && echo) || this should not print")
+([ totesFalse ] && echo "totesFalse && should not print") || ([ -f src/And.h ] && echo "(test false && echo) || this should print")
+(test -d bin || echo "(test || should not print)") && (echo "(test true || echo) && (echo || test true)" || test -f makefile)
+[ -e src/MultiCmd.cpp
+[ -e src ] && echo "prev. error did not break shell"
+exit
