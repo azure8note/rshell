@@ -10,23 +10,38 @@ void CmdComposite::clearCmds() {
 
 void CmdComposite::addCmd(char* cmd) {
 	string cmdCpy(cmd); // Create string of cmd
-	int numOpen = 0;
-	int numClose = 0;
+	unsigned int lastFoundOpen = 0; // Index of the last found open parenthesis
+	int numOpen = 0; // Number of open parentheses
+	int numClose = 0; // Number of closing parentheses
 	
+	unsigned int brackIndex = 0; // Index of opening bracket
+
 	if (cmdCpy.find("&&") == 0 || cmdCpy.find("||") == 0) {
 		throw "INVALID INPUT: CANNOT BEGIN COMMAND WITH CONNECTOR";
 	}
 	
 	for (unsigned int i = 0; i < cmdCpy.size(); ++i) {//checks for parenthesis
 		if (cmdCpy.at(i) == '(') {
-		      ++numOpen;
+		    lastFoundOpen = i;  
+		    ++numOpen;
 		}
 		if (cmdCpy.at(i) == ')') { // If no closing parentheses is found, throw Invalid 
-		      ++numClose;			
+		    if (i == lastFoundOpen + 1) {
+			throw "INVALID INPUT: EMPTY PARENTHESES ()";
+		    }
+		    ++numClose;			
 		}
 	}		
+	
 	if (numOpen != numClose) {
 		throw "INVALID INPUT: NO CLOSING PARENTHESES";
+	}
+
+	if (cmdCpy.find("[") != string::npos) {
+		brackIndex = cmdCpy.find("[");
+		if (cmdCpy.find("]") == brackIndex + 1) {
+			throw "INVALID INPUT: EMPTY BRACKETS []";
+		}
 	}
 	
 	if (cmdCpy.find("&&") != string::npos || cmdCpy.find("||") != string::npos) { 
