@@ -26,7 +26,7 @@ void SingleCmd::parse() { // Seperates the command from its flag into two sepera
     char* tok;
     string cmdCpy(cmd);
     
-    if (cmdCpy.at(0) == "[" && cmdCpy.find("]") == string::npos) { // Error: no closing bracket
+    if (cmdCpy.at(0) == '[' && cmdCpy.find("]") == string::npos) { // Error: no closing bracket
 	throw "INVALID INPUT: [ WITH NO CLOSING ]";
     }
 
