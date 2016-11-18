@@ -81,20 +81,20 @@ void MultiCmd::parse() { // Splits the command string into string tokens
       }
     }
 //------------------------	      
-    temp = cmdCpy.substr(0, index);
-    cmdCpy = cmdCpy.substr(index, cmdCpy.size()-index);
-    strcpy(cstr, temp.c_str());
+    temp = cmdCpy.substr(0, index);//creates the temp string with the substring we want as a token
+    cmdCpy = cmdCpy.substr(index, cmdCpy.size()-index);//changes cmdCpy to the new string that has the token removed
+    strcpy(cstr, temp.c_str());//makes temp a c string before pushing
     cmds.push_back(cstr);
  
   
-  while (cmdCpy.find(andDelimiter) != string::npos || cmdCpy.find(orDelimiter) != string::npos){
+  while (cmdCpy.find(andDelimiter) != string::npos || cmdCpy.find(orDelimiter) != string::npos){//checks to see fi there are more connectors
     char* cstr2 = new char[2];
     
     while (cmdCpy[0] == ' ') { // Removes space behind ; 
 	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
     }
     //pushes connector into the cmds vector
-    connector = cmdCpy.substr(0, 2);
+    connector = cmdCpy.substr(0, 2);//reads in the connector since if this is not a connector it should have thrown an error
     cmdCpy = cmdCpy.substr(2, cmdCpy.size()-2);
     strcpy(cstr2, connector.c_str());
     cmds.push_back(cstr2);
