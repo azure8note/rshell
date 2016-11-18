@@ -61,7 +61,7 @@ void SingleCmd::parse() { // Seperates the command from its flag into two sepera
 }
 
 void SingleCmd::execute() {
-    try {
+    try { // Fix spacing
 	this->parse(); // Further parses cmd into the actual command and any flags it has
     } catch (const char* err_msg) { // Catch INVALID INPUT error
 	cerr << err_msg << endl; // Prints to console error message
@@ -70,7 +70,8 @@ void SingleCmd::execute() {
 
     string argsCpy(args[0]);
     struct stat sb;
-        
+    
+    try {    
     if (argsCpy == "test" || argsCpy == "[") { // Looks for test command
         string firstTok(args[1]); 
 	    
@@ -88,6 +89,12 @@ void SingleCmd::execute() {
 	    
 	    return;	
 	}  
+
+	if (argsCpy == "test" && firstTok.at(0) == '-' && args[2] == NULL) {
+	    throw "INVALID INPUT: NO PATH PROVIDED";
+	} else if (argsCpy == "[" && firstTok.at(0) == '-' && args[3] == NULL) {
+	    throw "INVALID INPUT: NO PATH PROVIDED";
+        }
 
 	if (stat(args[2], &sb) == -1) { // Initialize stat with path given at index 2
             perror("stat");
@@ -117,7 +124,11 @@ void SingleCmd::execute() {
 	    }
 	}   
         return;
-    }	
+    }
+    } catch (const char* err_msg) {
+	cerr << err_msg << endl;
+	return;
+    } 
  
     string lowExit = "exit";
     string capExit = "EXIT";
