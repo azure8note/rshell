@@ -53,7 +53,7 @@ void MultiCmd::parse() { // Splits the command string into string tokens
     int closeCounter = 0;
     
     //maybe only need to check the first char since that how it statrts
-    if (cmdCpy.at(0) == '('){
+    while (cmdCpy.at(0) == '('){
        unsigned i = 0;
        openCounter++; // found a parenthesis 
        while (openCounter > closeCounter){ //looks for the last closing parethesis for this part
@@ -66,7 +66,21 @@ void MultiCmd::parse() { // Splits the command string into string tokens
 	  }
       }
       //index is now pointing to the location of the last parenthesis
-      index = i+1;
+      index = i + 1;
+      if (cmds.size() == 0 && i == cmdCpy.size()-1){
+	//checks if this parenthetical section is the only command in the array of strings
+	  cmdCpy = cmdCpy.substr(1, i-1);//removes parenthesis if it is the last command
+	  //resets the index to the new poistion of the connector since it is now a simple multiCmd
+	  if (cmdCpy.find(andDelimiter) < cmdCpy.find(orDelimiter)) {
+	      index = cmdCpy.find(andDelimiter);
+	  } 
+	  else {
+	      index = cmdCpy.find(orDelimiter);
+	  }
+      } 
+      else {
+	  break;
+      }
     }
 //------------------------	      
     temp = cmdCpy.substr(0, index);
