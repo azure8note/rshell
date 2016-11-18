@@ -24,14 +24,26 @@ void SingleCmd::setCmdStatus(bool b){
 
 void SingleCmd::parse() { // Seperates the command from its flag into two seperate tokens  
     char* tok;
-
+    
     if (cmd[0] == ' '){ // If there is a space after the ';', this removes it.
 	string cmdCpy(cmd);
-	cmdCpy = cmdCpy.substr(1, cmdCpy.length() - 1);
+	    
+	while (cmdCpy.at(0) == ' '){ //removes parenthesis around single commands
+	  cmdCpy = cmdCpy.substr(1, cmdCpy.size());
+	}
+	
+	char* cstr = new char[cmdCpy.length()+1];
+	strcpy(cstr, cmdCpy.c_str());
+	cmd = cstr;
+    }
+    
+    if (cmd[0] == '(') {
+      	string cmdCpy(cmd);
 	    
 	while (cmdCpy.at(0) == '('){ //removes parenthesis around single commands
 	  cmdCpy = cmdCpy.substr(1, cmdCpy.size()-1);
 	}
+	
 	char* cstr = new char[cmdCpy.length()+1];
 	strcpy(cstr, cmdCpy.c_str());
 	cmd = cstr;
