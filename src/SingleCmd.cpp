@@ -24,9 +24,13 @@ void SingleCmd::setCmdStatus(bool b){
 
 void SingleCmd::parse() { // Seperates the command from its flag into two seperate tokens  
     char* tok;
+    string cmdCpy(cmd);
     
+    if (cmdCpy.at(0) == "[" && cmdCpy.find("]") == string::npos) { // Error: no closing bracket
+	throw "INVALID INPUT: [ WITH NO CLOSING ]";
+    }
+
     if (cmd[0] == ' '){ // If there is a space after the ';', this removes it.
-	string cmdCpy(cmd);
 	    
 	while (cmdCpy.at(0) == ' '){ //removes parenthesis around single commands
 	  cmdCpy = cmdCpy.substr(1, cmdCpy.size()-1);
@@ -37,10 +41,8 @@ void SingleCmd::parse() { // Seperates the command from its flag into two sepera
 	cmd = cstr;
     }
     
-    if (cmd[0] == '(') {
-      	string cmdCpy(cmd);
-	    
-	while (cmdCpy.at(0) == '('){ //removes parenthesis around single commands
+    if (cmd[0] == '(') { // Check for parentheses
+	while (cmdCpy.at(0) == '('){ // Removes parentheses around single commands
 	  cmdCpy = cmdCpy.substr(1, cmdCpy.size()-2);
 	}
 	
@@ -59,70 +61,63 @@ void SingleCmd::parse() { // Seperates the command from its flag into two sepera
 }
 
 void SingleCmd::execute() {
-    this->parse(); // Further parses cmd into the actual command and any flags it has
-
-    string argsCpy(args[0]);
-    struct stat sb;
-        
     try {
-        if (argsCpy == "test" || argsCpy == "[") { // Looks for test command
-            string firstTok(args[1]); 
-	
-	    
-	    if (firstTok.at(0) != '-') { // Checks if a flag is provided with the test command
-	        if (argsCpy == "[" && *(args[2]) != ']') { // Closing bracket is at args[2] when there is no flag
-		    throw "INVALID INPUT: [ WITH NO CLOSING ]";
-		}
-		if (stat(args[1], &sb) == -1) { // Path given in index 1 when no flag is provided
-        	    perror("stat"); 		// Error check
-		    // exit(EXIT_FAILURE);
-		}
-	        if (access(args[1], F_OK) == 0) { // Check if the file exists at given path
-		    cout << "(True)" << endl;
-	        } else {
-		    cout << "(False)" << endl;	
-		    setCmdStatus(false); // Set cmdStatus to false
-	        }
-		return;	
-	    }
-	    
-	    if (argsCpy == "[" && *(args[3]) != ']') { // Case with flag provided: ] index at 3
-		throw "INVALID INPUT: [ WITH NO CLOSING ]";
-	    }
-
-	    if (stat(args[2], &sb) == -1) { // Initialize stat with path given at index 2
-        	perror("stat");
-	        // exit(EXIT_FAILURE);
-	    }
-
-	    if (firstTok.at(1) == 'e') { // Check for -e flag
-	        if (access(args[2], F_OK) == 0) { // If the file exists, print (True)
-		    cout << "(True)" << endl;
-	        } else { // File does not exist
-		    cout << "(False)" << endl; 
-		    setCmdStatus(false); // Set cmdStatus to false
-	        }	
-	    } else if (firstTok.at(1) == 'f') { // Check for -f flag
-	        if (S_ISREG (sb.st_mode)) { // Check if it is a regular file
-		    cout << "(True)" << endl;
-	        } else {
-		    cout << "(False)" << endl;
-		    setCmdStatus(false);
-	        }
-	    } else { // -d flag
-	        if (S_ISDIR (sb.st_mode)) { // Check if it is a directory
-		    cout << "(True)" << endl;
-	        } else {
-		    cout << "(False)" << endl;
-		    setCmdStatus(false);
-	        }
-	    }   
-            return;
-	}	
+	this->parse(); // Further parses cmd into the actual command and any flags it has
     } catch (const char* err_msg) { // Catch INVALID INPUT error
 	cerr << err_msg << endl; // Prints to console error message
 	return; // Ends call to execute
     }
+
+    string argsCpy(args[0]);
+    struct stat sb;
+        
+    if (argsCpy == "test" || argsCpy == "[") { // Looks for test command
+        string firstTok(args[1]); 
+	    
+	if (firstTok.at(0) != '-') { // Checks if a flag is provided with the test command
+	    if (stat(args[1], &sb) == -1) { // Path given in index 1 when no flag is provided
+        	perror("stat"); // Error check
+	    }
+	    
+	    if (access(args[1], F_OK) == 0) { // Check if the file exists at given path
+		cout << "(True)" << endl;
+	    } else {
+		cout << "(False)" << endl;	
+		setCmdStatus(false); // Set cmdStatus to false
+	    }
+	    
+	    return;	
+	}  
+
+	if (stat(args[2], &sb) == -1) { // Initialize stat with path given at index 2
+            perror("stat");
+	    // exit(EXIT_FAILURE);
+	}
+
+	if (firstTok.at(1) == 'e') { // Check for -e flag
+	    if (access(args[2], F_OK) == 0) { // If the file exists, print (True)
+		cout << "(True)" << endl;
+	    } else { // File does not exist
+		cout << "(False)" << endl; 
+		setCmdStatus(false); // Set cmdStatus to false
+	    }	
+	} else if (firstTok.at(1) == 'f') { // Check for -f flag
+	    if (S_ISREG (sb.st_mode)) { // Check if it is a regular file
+		cout << "(True)" << endl;
+	    } else {
+		cout << "(False)" << endl;
+		setCmdStatus(false);
+	    }
+	} else { // -d flag
+	    if (S_ISDIR (sb.st_mode)) { // Check if it is a directory
+		cout << "(True)" << endl;
+	    } else {
+		cout << "(False)" << endl;
+		setCmdStatus(false);
+	    }
+	}   
+        return;
+    }	
  
     string lowExit = "exit";
     string capExit = "EXIT";
