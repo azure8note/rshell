@@ -20,10 +20,10 @@ void CmdComposite::addCmd(char* cmd) {
 		int numClose = 0;
 
 		for (unsigned int i = 0; i < cmdCpy.size(); ++i) {
-			if (cmdCpy.find("(") != string::npos) {
+			if (cmdCpy.at(i) == "(") {
 				++numOpen;
 			}
-			if (cmdCpy.find(")") != string::npos) { // If no closing parentheses is found, throw Invalid 
+			if (cmdCpy.at(i) == ")") { // If no closing parentheses is found, throw Invalid 
 				++numClose;			
 			}
 		}
