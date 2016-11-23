@@ -60,6 +60,121 @@ void SingleCmd::parse() { // Seperates the command from its flag into two sepera
     }
 }
 
+void SingleCmd::executeCd() {
+	
+	string cwd(getenv("PWD")); // Store current working directory as string
+        
+    if (args[1] == NULL) { // No argument supplied, return to home directory
+
+		if (chdir(getenv("HOME")) == -1) { // Change pwd to home, chdir returns -1 upon failure
+            perror("ERROR: COULD NOT REACH HOME DIRECTORY");
+            setCmdStatus(false);
+        }
+        if (setenv("OLDPWD", getenv("PWD"), 1) == -1) { // Update OLDPWD to PWD, setenv returns -1 if it fails
+            perror("ERROR: COULD NOT UPDATE OLDPWD");
+        }
+        if (setenv("PWD", getenv("HOME"), 1) == -1) { // Update PWD to HOME
+            perror("ERROR: COULD NOT SET PWD");            
+        }
+	} else if (*(args[1]) == '-') { // Return to previous directory
+        if (chdir(getenv("OLDPWD")) == -1) {
+            perror("ERROR: COULD NOT ACCESS OLDPWD");
+            setCmdStatus(false);
+        }
+        if (setenv("PWD", getenv("OLDPWD"), 1) == -1) { // Update PWD to OLDPWD
+            perror("ERROR: COULD NOT SET PWD");
+        }             
+        if (setenv("OLDPWD", cwd.c_str(), 1) == -1) { // Update OLDPWD to earlier PWD
+            perror("ERROR: COULD NOT UPDATE OLDPWD");
+        }             
+    } else { // Change working directory to specified path
+        string dir(args[1]);
+	    if (chdir(args[1]) == -1) {
+                perror("ERROR: COULD NOT REACH DIRECTORY");
+                setCmdStatus(false);
+        }
+            if (setenv("OLDPWD", cwd.c_str(), 1) == -1) { // Update OLDPWD to earlier PWD
+                perror("ERROR: COULD NOT UPDATE OLDPWD");
+            }
+
+	    	if (dir.find("..") == string::npos) {
+            	cwd += "/";
+            	cwd += dir; // Concatenate / and new directory to prev. working directory
+            } else { // Go back one directory
+				unsigned int index = cwd.size() - 1; 
+                while (cwd.at(index) != '/') { // Find the end of path for the next directory up
+					--index; // index will decrement until it finds / which separates directories
+				}
+				cwd = cwd.substr(0, index);
+
+				if (dir.size() > 3) {
+					dir = dir.substr(2, dir.size() - 2);
+					cwd += dir;
+				}			
+			}
+			
+			if (setenv("PWD", cwd.c_str(), 1) == -1) { // Update PWD to provided path
+                perror("ERROR: COULD NOT SET PWD TO NEW DIRECTORY");
+            }
+    }
+    return;
+}
+
+void SingleCmd::executeTest() {
+	struct stat sb;
+	string argsCpy(args[0]);
+	string firstTok(args[1]);
+
+	if (firstTok.at(0) != '-') { // Checks if a flag is provided with the test command
+	   	if (stat(args[1], &sb) == -1) { // Path given in index 1 when no flag is provided
+       		perror("stat"); // Error check
+	  	}	
+	    	
+	    if (access(args[1], F_OK) == 0) { // Check if the file exists at given path
+			cout << "(True)" << endl;
+	    } else {
+			cout << "(False)" << endl;	
+			setCmdStatus(false); // Set cmdStatus to false
+	    }
+	    
+	   	return;	
+	}	  
+
+	if (argsCpy == "test" && firstTok.at(0) == '-' && args[2] == NULL) {
+	  	throw "INVALID INPUT: NO PATH PROVIDED";
+	} else if (argsCpy == "[" && firstTok.at(0) == '-' && args[3] == NULL) {
+	   	throw "INVALID INPUT: NO PATH PROVIDED";
+    }
+
+	if (stat(args[2], &sb) == -1) { // Initialize stat with path given at index 2
+        perror("stat");
+	}
+
+	if (firstTok.at(1) == 'e') { // Check for -e flag
+	    if (access(args[2], F_OK) == 0) { // If the file exists, print (True)
+			cout << "(True)" << endl;
+	   	} else { // File does not exist
+			cout << "(False)" << endl; 
+			setCmdStatus(false); // Set cmdStatus to false
+	    }	
+	} else if (firstTok.at(1) == 'f') { // Check for -f flag
+	    if (S_ISREG (sb.st_mode)) { // Check if it is a regular file
+			cout << "(True)" << endl;
+	    } else {
+			cout << "(False)" << endl;
+			setCmdStatus(false);
+	    }
+	} else { // -d flag
+	   	if (S_ISDIR (sb.st_mode)) { // Check if it is a directory
+			cout << "(True)" << endl;
+	    } else {
+			cout << "(False)" << endl;
+			setCmdStatus(false);
+	    }
+	}   
+    return;
+}
+
 void SingleCmd::execute() {
     try { 
 		this->parse(); // Parse cmd into the actual command and any flags it has
@@ -69,117 +184,17 @@ void SingleCmd::execute() {
     }
  
     string argsCpy(args[0]);
-    struct stat sb;
-    string homePath = "";    	    
   
     if (argsCpy == "cd") { // Looks for cd command  
-	    string cwd(getenv("PWD")); // Store current working directory as string
-        
-        if (args[1] == NULL) { // No argument supplied, return to home directory
-            int numSlash = 0;
-            
-            for (unsigned i = 0; i < cwd.length(); ++i) {
-                if (cwd.at(i) == '/') {
-                    ++numSlash;
-                }
-                    
-                if (numSlash > 2) {
-                    homePath += "../";
-                }
-            }
-
-            if (chdir(homePath.c_str()) == -1) { // Change pwd to homePath, chdir returns -1 upon failure
-                perror("ERROR: COULD NOT REACH HOME DIRECTORY");
-                setCmdStatus(false);
-            }
-            if (setenv("OLDPWD", getenv("PWD"), 1) == -1) { // Update OLDPWD to PWD, setenv returns -1 if it fails
-                perror("ERROR: COULD NOT UPDATE OLDPWD");
-            }
-            if (setenv("PWD", getenv("HOME"), 1) == -1) { // Update PWD to HOME
-                    perror("ERROR: COULD NOT SET PWD");            
-            }
-	} else if (*(args[1]) == '-') { // Return to previous directory
-            if (chdir(getenv("OLDPWD")) == -1) {
-                perror("ERROR: COULD NOT ACCESS OLDPWD");
-                setCmdStatus(false);
-            }
-            if (setenv("PWD", getenv("OLDPWD"), 1) == -1) { // Update PWD to OLDPWD
-                perror("ERROR: COULD NOT SET PWD");
-            }             
-            if (setenv("OLDPWD", cwd.c_str(), 1) == -1) { // Update OLDPWD to earlier PWD
-                perror("ERROR: COULD NOT UPDATE OLDPWD");
-            }             
-        } else { // Change working directory to specified path
-            string dir(args[1]);
-	    if (chdir(args[1]) == -1) {
-                perror("ERROR: COULD NOT REACH DIRECTORY");
-                setCmdStatus(false);
-            }
-            if (setenv("OLDPWD", cwd.c_str(), 1) == -1) { // Update OLDPWD to earlier PWD
-                perror("ERROR: COULD NOT UPDATE OLDPWD");
-            }
-            cwd += "/";
-            cwd += dir; // Concatenate / and new directory to prev. working directory
-            if (setenv("PWD", cwd.c_str(), 1) == -1) { // Update PWD to provided path
-                perror("ERROR: COULD NOT SET PWD TO NEW DIRECTORY");
-            }
-        }
-        return;
-    }
+    	executeCd();
+		return;
+	}
 
     try {	 
-	    if (argsCpy == "test" || argsCpy == "[") { // Looks for test command
-			string firstTok(args[1]);
-			if (firstTok.at(0) != '-') { // Checks if a flag is provided with the test command
-	    		if (stat(args[1], &sb) == -1) { // Path given in index 1 when no flag is provided
-        			perror("stat"); // Error check
-	   		 	}	
-	    	
-
-	    		if (access(args[1], F_OK) == 0) { // Check if the file exists at given path
-					cout << "(True)" << endl;
-	    		} else {
-					cout << "(False)" << endl;	
-					setCmdStatus(false); // Set cmdStatus to false
-	    		}
-	    
-	   	 		return;	
-			}	  
-
-			if (argsCpy == "test" && firstTok.at(0) == '-' && args[2] == NULL) {
-	    		throw "INVALID INPUT: NO PATH PROVIDED";
-			} else if (argsCpy == "[" && firstTok.at(0) == '-' && args[3] == NULL) {
-	    		throw "INVALID INPUT: NO PATH PROVIDED";
-        	}
-
-			if (stat(args[2], &sb) == -1) { // Initialize stat with path given at index 2
-            	perror("stat");
-			}
-
-			if (firstTok.at(1) == 'e') { // Check for -e flag
-	    		if (access(args[2], F_OK) == 0) { // If the file exists, print (True)
-					cout << "(True)" << endl;
-	   			} else { // File does not exist
-					cout << "(False)" << endl; 
-					setCmdStatus(false); // Set cmdStatus to false
-	    		}	
-			} else if (firstTok.at(1) == 'f') { // Check for -f flag
-	    		if (S_ISREG (sb.st_mode)) { // Check if it is a regular file
-					cout << "(True)" << endl;
-	    		} else {
-					cout << "(False)" << endl;
-					setCmdStatus(false);
-	    		}
-			} else { // -d flag
-	    		if (S_ISDIR (sb.st_mode)) { // Check if it is a directory
-					cout << "(True)" << endl;
-	    		} else {
-					cout << "(False)" << endl;
-					setCmdStatus(false);
-	    		}
-			}   
-        	return;
-    	} // Closes fisrt if statement in try block
+		if (argsCpy == "test" || argsCpy == "[") { // Looks for test command
+			executeTest();
+			return;
+		}
     } catch (const char* err_msg) {
 		cerr << err_msg << endl;
 		return;
