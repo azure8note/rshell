@@ -79,9 +79,8 @@ void SingleCmd::execute() {
 	if (args[1] == NULL) {
 	    cd = new cdCmd();
 	}
-	else {
-	   string path(args[1]); 
-	   cd = new cdCmd(path);
+	else { 
+	   cd = new cdCmd(args[1]);
 	}
 	
 	cd->execute();
