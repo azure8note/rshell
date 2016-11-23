@@ -29,23 +29,11 @@ int main() {
 	
 	while(1) {
 		string path(getenv("PWD")); // Removes the redundant part of the path
-		int index = 0;
-		int counter = 0;
 		
-		for (unsigned i = 0; i < path.size(); i++){
-		    if (path.at(i) == '/'){
-		        counter++;
-		    }
-		    
-		    if (counter == 2) {
-		        index = i;
-		        break;
-		    }
-		}
-		
-		if (index != 0){
-		    path = path.substr(index, path.length() - index);
-		}
+		string user(getenv("USER"));
+		unsigned numChar = path.find(user) + user.size();
+
+		path = path.substr(numChar, path.size()-numChar);
 		
 		cout << usrname  << "@" << hostname << ":~" << path << " $ ";
 		getline(cin, cmdLine);
