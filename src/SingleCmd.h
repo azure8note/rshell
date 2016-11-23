@@ -44,7 +44,8 @@ public:
 	// The main function used by the composite pattern
 	void parse();//used by the execute to remove spaces
 	void execute();
-	void executeTest();
+	void executeTest(); // Calles the test command execute if test is in the command
+	void executeCd(); // Calles the cd command execute if cd is in the command
 };
 
 #endif
