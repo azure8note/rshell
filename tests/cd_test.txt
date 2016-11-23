@@ -1,0 +1,10 @@
+cd .. && echo rshell
+cd src && echo src
+cd - && echo rshell
+cd bin && echo bin
+cd && echo home/username
+cd - && echo bin
+cd && echo home/username
+cd rshell/tests && echo tests
+cd ../src && echo src
+exit
