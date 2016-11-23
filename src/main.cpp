@@ -33,9 +33,9 @@ int main() {
 		
 	while(1) {
 		string cmdLine2 = "";
-		
-		string path(getenv(PATH);//removes the redundant part of the path
+		string path(getenv(PATH); // Removes the redundant part of the path
 		int index = 0;
+		
 		for (unsigned i = 0; i < path.size(); i++){
 		    if (path.at(i) = '/'){
 		       int counter++;
@@ -45,6 +45,7 @@ int main() {
 		      break;
 		    }
 		}
+		
 		if (index != 0){
 		    path = path.substr(index, path.length() - index);
 		}
