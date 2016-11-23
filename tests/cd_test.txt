@@ -1,10 +1,29 @@
-cd .. && echo test
-cd src && echo rshell
-cd - && echo src
-cd bin && echo rshell
-cd && echo bin
-cd - && echo home/username
-cd && echo bin
+echo test
+cd ..
+echo rshelll
+cd src
+echo src
+cd -
+echo rshell
+cd bin
+echo bin
+cd
+echo home/user
+cd -
+echo bin
+cd .
+echo bin
+cd ./
+echo bin
+cd ../.././rshell
+echo rshell
+cd ..
+echo thing befoe rshell
+cd rshell/tests
+echo tests
+cd ../.././rshell/./src
+echo tests
+echo will work on hammer
 cd rshell/tests && home/username
 cd ../src && echo src
 exit
