@@ -72,7 +72,7 @@ void SingleCmd::execute() {
     struct stat sb;
     
     
-    if (argsCpy == "cd") { //looks for cd command  
+   /* if (argsCpy == "cd") { //looks for cd command  
 	//args[1] should be the path, '-', or empty
 	cdCmd* cd = 0;
 	
@@ -85,7 +85,7 @@ void SingleCmd::execute() {
 	
 	cd->execute();
 	return;
-    }
+    }*/
 	
     try {    
     if (argsCpy == "test" || argsCpy == "[") { // Looks for test command

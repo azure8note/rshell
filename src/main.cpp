@@ -35,7 +35,7 @@ int main() {
 	while(1) {
 		string cmdLine2 = "";
 		
-		string path(getenv("PATH"));//removes the redundant part of the path
+		string path(getenv("PWD"));//removes the redundant part of the path
 		int index = 0;
 		int counter = 0;
 		for (unsigned i = 0; i < path.size(); i++){
@@ -51,7 +51,7 @@ int main() {
 		    path = path.substr(index, path.length() - index);
 		}
 		
-		cout << usrname  << "@" << hostname << ":~/" << path << " $ ";
+		cout << usrname  << "@" << hostname << ":~" << path << " $ ";
 		getline(cin, cmdLine);
 		cmdList->parse(cmdLine);
 		cmdList->execute(); // exit command is checked for in execute()
