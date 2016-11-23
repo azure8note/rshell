@@ -1,6 +1,7 @@
 #ifndef SINGLECMD_H
 #define SINGLECMD_H
 #include "Base.h"
+#include "cdCmd.h"
 
 #include <cstring>
 #include <iostream>

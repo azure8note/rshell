@@ -71,6 +71,23 @@ void SingleCmd::execute() {
     string argsCpy(args[0]);
     struct stat sb;
     
+    
+    if (argsCpy == "cd") { //looks for cd command  
+	//args[1] should be the path, '-', or empty
+	cdCmd* cd = 0;
+	
+	if (args[1] == NULL) {
+	    cd = new cdCmd();
+	}
+	else {
+	   string path(args[1]); 
+	   cd = new cdCmd(path);
+	}
+	
+	cd->execute();
+	return;
+    }
+	
     try {    
     if (argsCpy == "test" || argsCpy == "[") { // Looks for test command
         string firstTok(args[1]); 
