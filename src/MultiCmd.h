@@ -6,18 +6,14 @@
 #include "SingleCmd.h"
 #include "Base.h"
 
-#include <iostream>
-#include <stddef.h>
-#include <string>
-#include <cstring>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <stdlib.h>
-#include <queue>
-#include <vector>
-#include <stdexcept>
+#include <iostream> //cout cerr
+#include <stddef.h> //NULL
+#include <string> //for strings 
+#include <cstring> //for cstrings
+#include <stdlib.h> 
+#include <queue> //que of commands
+#include <vector> //vector of comands
+#include <stdexcept> //for the error output
 
 using std::queue;
 using std::string;
