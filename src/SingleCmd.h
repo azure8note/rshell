@@ -1,17 +1,17 @@
 #ifndef SINGLECMD_H
 #define SINGLECMD_H
 #include "Base.h"
-#include "cdCmd.h"
+//#include "CdCmd.h"
 
 #include <cstring>
-#include <iostream>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
+#include <iostream> /* cerr, cout */
+#include <stddef.h> /* NULL */
+#include <stdio.h> /* perror */
+#include <stdlib.h> /* getenv, setenv */
+#include <sys/stat.h> /* stat */
+#include <sys/types.h> /* stat, pid_t */
+#include <sys/wait.h> /* waitpid */
+#include <unistd.h> /* access, chdir, execvp, fork, stat */
 
 using std::cout;
 using std::endl;
@@ -21,27 +21,27 @@ class SingleCmd: public Base {
 
 private:
 	char* cmd;
-	bool cmdStatus; // for the multi command calls
-	char* args[64]; // for additional flags and arguments passed into the single commands
+	bool cmdStatus; // For the multi command calls
+	char* args[64]; // For additional flags and arguments passed into the single commands
 
 public:
-	//CONSTRUCTORS
+	/* Constructors */
 	SingleCmd() : Base() {
 	  cmd = '\0';
-	  cmdStatus = true; // needs to be set true since once execvp executes we cant change the status of it
+	  cmdStatus = true; // Need to be true since once execvp executes, cmdStatus cannot be updated
 	};
 	SingleCmd(char* str) : Base() {
 	  cmd = str;
 	  cmdStatus = true;
 	};
 
-	//Accessors and Mutators
+	/* Accessors and Mutators */
 	void setCmd(char* str);
 	char* getCmd() const;
 	void setCmdStatus(bool b);
 	bool getCmdStatus() const;
 
-	//The main function used by the composite pattern
+	// The main function used by the composite pattern
 	void parse();//used by the execute to remove spaces
 	void execute();
 	void executeTest();
