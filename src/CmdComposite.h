@@ -15,6 +15,8 @@ using std::string;
 class CmdComposite : public Base {
 private:
 	vector <Base*> cmdList;	
+	string pwd;
+	string oldPwd;
 	
 public:
 	//Constructor
