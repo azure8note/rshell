@@ -38,15 +38,18 @@ int main() {
 		string path(getenv("PWD"));//removes the redundant part of the path
 		int index = 0;
 		int counter = 0;
+		
 		for (unsigned i = 0; i < path.size(); i++){
 		    if (path.at(i) == '/'){
-		       counter++;
+		        counter++;
 		    }
+		    
 		    if (counter == 2) {
-		      index = i;
-		      break;
+		        index = i;
+		        break;
 		    }
 		}
+		
 		if (index != 0){
 		    path = path.substr(index, path.length() - index);
 		}
