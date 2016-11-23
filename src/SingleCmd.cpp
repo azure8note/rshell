@@ -70,17 +70,15 @@ void SingleCmd::execute() {
  
     string argsCpy(args[0]);
     struct stat sb;
-    string homePath = "";    
-    string firstTok(args[1]);	    
-	    
+    string homePath = "";    	    
   
     if (argsCpy == "cd") { // Looks for cd command  
-	    string cwd(getenv("PWD"); // Store current working directory as string
+	    string cwd(getenv("PWD")); // Store current working directory as string
         
         if (args[1] == NULL) { // No argument supplied, return to home directory
             int numSlash = 0;
             
-            for (int i = 0; i < cwd.length(); ++i) {
+            for (unsigned i = 0; i < cwd.length(); ++i) {
                 if (cwd.at(i) == '/') {
                     ++numSlash;
                 }
@@ -94,25 +92,26 @@ void SingleCmd::execute() {
                 perror("ERROR: COULD NOT REACH HOME DIRECTORY");
                 setCmdStatus(false);
             }
-            if (setenv("OLDPWD", "PWD", 1 == -1) { // Update OLDPWD to PWD, setenv returns -1 if it fails
+            if (setenv("OLDPWD", getenv("PWD"), 1) == -1) { // Update OLDPWD to PWD, setenv returns -1 if it fails
                 perror("ERROR: COULD NOT UPDATE OLDPWD");
             }
-            if (setenv("PWD", "HOME", 1) == -1) { // Update PWD to HOME
+            if (setenv("PWD", getenv("HOME"), 1) == -1) { // Update PWD to HOME
                     perror("ERROR: COULD NOT SET PWD");            
             }
-        } else if (*(args[1]) == '-') { // Return to previous directory
+	} else if (*(args[1]) == '-') { // Return to previous directory
             if (chdir(getenv("OLDPWD")) == -1) {
                 perror("ERROR: COULD NOT ACCESS OLDPWD");
                 setCmdStatus(false);
             }
-            if (setenv("PWD", "OLDPWD", 1) == -1) { // Update PWD to OLDPWD
+            if (setenv("PWD", getenv("OLDPWD"), 1) == -1) { // Update PWD to OLDPWD
                 perror("ERROR: COULD NOT SET PWD");
             }             
             if (setenv("OLDPWD", cwd.c_str(), 1) == -1) { // Update OLDPWD to earlier PWD
                 perror("ERROR: COULD NOT UPDATE OLDPWD");
             }             
         } else { // Change working directory to specified path
-            if (chdir(args[1]) == -1) {
+            string dir(args[1]);
+	    if (chdir(args[1]) == -1) {
                 perror("ERROR: COULD NOT REACH DIRECTORY");
                 setCmdStatus(false);
             }
@@ -120,15 +119,17 @@ void SingleCmd::execute() {
                 perror("ERROR: COULD NOT UPDATE OLDPWD");
             }
             cwd += "/";
-            cwd += firstTok; // Concatenate / and new directory to prev. working directory
+            cwd += dir; // Concatenate / and new directory to prev. working directory
             if (setenv("PWD", cwd.c_str(), 1) == -1) { // Update PWD to provided path
                 perror("ERROR: COULD NOT SET PWD TO NEW DIRECTORY");
             }
         }
+        return;
     }
 
     try {	 
 	    if (argsCpy == "test" || argsCpy == "[") { // Looks for test command
+			string firstTok(args[1]);
 			if (firstTok.at(0) != '-') { // Checks if a flag is provided with the test command
 	    		if (stat(args[1], &sb) == -1) { // Path given in index 1 when no flag is provided
         			perror("stat"); // Error check
