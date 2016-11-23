@@ -1,24 +1,26 @@
-#include "cdCmd.h"
+#include "CdCmd.h"
 
-//-------GETTER AND SETTERS ---------
-string cdCmd::getPWD() const {
-   return pwd;
+/* Accessors and Mutators */
+
+string CdCmd::getPWD() const {
+	return pwd;
 }
 
-void cdCmd::setPWD(string path) {
-   pwd = s;
+void CdCmd::setPWD(string path) {
+	
 }
 
-string cdCmd::getOLDPWD() const {
-   return oldPwd;
+string CdCmd::getOLDPWD() const {
+	return oldPwd;
 }
 
-void cdCmd::setOLDPWD(string path) {
-  oldPwd = s;
+void CdCmd::setOLDPWD(string path) {
+	
 }
+
 //--------------------------------
 
-void cdCmd::execute() {
+void CdCmd::execute() {
   
 }
 
