@@ -10,6 +10,7 @@
 #include <string>
 #include <cstring>
 #include <limits.h>
+#include <stdlib.h>
 
 using std::string;
 using std::cin;
@@ -34,11 +35,12 @@ int main() {
 	while(1) {
 		string cmdLine2 = "";
 		
-		string path(getenv(PATH);//removes the redundant part of the path
+		string path(getenv("PATH"));//removes the redundant part of the path
 		int index = 0;
+		int counter = 0;
 		for (unsigned i = 0; i < path.size(); i++){
-		    if (path.at(i) = '/'){
-		       int counter++;
+		    if (path.at(i) == '/'){
+		       counter++;
 		    }
 		    if (counter == 2) {
 		      index = i;
