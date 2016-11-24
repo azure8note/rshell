@@ -27,25 +27,28 @@ private:
 public:
 	/* Constructors */
 	SingleCmd() : Base() {
-	  cmd = '\0';
-	  cmdStatus = true; // Need to be true since once execvp executes, cmdStatus cannot be updated
-	};
+		cmd = '\0';
+		cmdStatus = true; // Need to be true since once execvp executes, cmdStatus cannot be updated
+	}
+
 	SingleCmd(char* str) : Base() {
-	  cmd = str;
-	  cmdStatus = true;
-	};
+		cmd = str;
+		cmdStatus = true;
+	}
 
 	/* Accessors and Mutators */
-	void setCmd(char* str);
 	char* getCmd() const;
-	void setCmdStatus(bool b);
 	bool getCmdStatus() const;
+	void setCmd(char* str);
+	void setCmdStatus(bool b);
 
-	// The main function used by the composite pattern
-	void parse();//used by the execute to remove spaces
+	void parse(); // Used by the execute to remove spaces
 	void execute();
-	void executeTest(); // Calles the test command execute if test is in the command
-	void executeCd(); // Calles the cd command execute if cd is in the command
+
+	/* Helper Functions */
+	string parseCd(string cwd); 
+	void executeCd(); // Calls the cd command execute if cd is in the command
+	void executeTest(); // Calls the test command execute if test is in the command
 };
 
 #endif
