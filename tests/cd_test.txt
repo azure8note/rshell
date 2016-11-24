@@ -1,29 +1,15 @@
-echo test
-cd ..
-echo rshelll
-cd src
-echo src
-cd -
-echo rshell
-cd bin
-echo bin
-cd
-echo home/user
-cd -
-echo bin
-cd .
-echo bin
-cd ./
-echo bin
-cd ../.././rshell
-echo rshell
-cd ..
-echo thing befoe rshell
-cd rshell/tests
-echo tests
-cd ../.././rshell/./src
-echo tests
-echo will work on hammer
-cd rshell/tests && home/username
-cd ../src && echo src
+cd .. && echo tests0
+cd src && echo rshell1
+cd - && echo src2
+cd bin && echo rshell3
+cd && echo bin4
+cd - && echo home/user5
+cd . && echo bin6
+cd ./ && echo bin7
+cd ../.././rshell && echo bin8
+cd .. && echo rshell9
+cd rshell/tests && echo "thing before rshell10"
+cd ../.././rshell/./src && echo tests11
+cd ../../rshell/src/./../tests && echo src12
+echo tests13
 exit
