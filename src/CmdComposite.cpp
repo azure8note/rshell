@@ -61,7 +61,7 @@ void CmdComposite::parse(string cmdLine) {
 		cmdLine = cmdLine.substr(0, pos);	
 	}
 
-	// cstr now contain c-string copy of cmdLine
+	// cstr now contains c-string copy of cmdLine
 	char* cstr = new char [cmdLine.length() + 1];
 	strcpy(cstr, cmdLine.c_str());
 	
