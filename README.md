@@ -1,6 +1,8 @@
 ## rshell
 
-Rshell is a command shell that emulates the command line of your average terminal. This program is equiped with the abilty to execute any command in bin that normal terminals posses, such as executing commands and even using connectors to execute multiple commands based on the success or failure of the previous command. Rshell can also execute the commands _test_ and _cd_ and can handle precedence operators (). The command _test_ can be run using _test_ or its symbolic implementation [ ]. Implemented flags for _test_ include _-e, -f,_ and _-d_. 
+Rshell is a command shell that emulates the command line of your average terminal. This program is equiped with the abilty to execute any command in bin that normal terminals posses, such as executing commands and even using connectors to execute multiple commands based on the success or failure of the previous command. 
+
+Rshell can also execute the commands _test_ and _cd_ and can handle precedence operators (). The command _test_ can be run using _test_ or its symbolic implementation [ ]. Implemented flags for _test_ include _-e, -f,_ and _-d_. 
 
 ### Known Bugs
 1. Inputing an invalid command breaks our shell, so you will have to close the client manually.  
